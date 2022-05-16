@@ -1,5 +1,5 @@
 ### Todo v1.0 ###
-installers for oh-my-zsh, p10k, brew, rust, navi
+installers for oh-my-zsh, p10k, brew, rust, navi !DONE!
 actually add all the needed packages to the check
 learn to write less shit code
 ### ideas idk ###
