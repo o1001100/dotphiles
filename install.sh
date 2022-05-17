@@ -16,6 +16,7 @@ if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 local new=(print '\n')
 local missa=('')
 local missb=('')
+local missc=('')
 local install=()
 local zsh=()
 local omzsh=(~'/.oh-my-zsh')
@@ -116,9 +117,12 @@ if [[ $(command -v brew) = "" ]]; then intall_brew; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
 if [[ $(command -v navi) = "" ]]; then missb=('navi '$missb); fi
+if [[ $(command -v gitui) = "" ]]; then missc=('gitui '$missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=('curl '$missa); fi
 if [[ $(command -v batcat) = "" ]]; then missa=('bat '$missa); fi
 if [[ $(command -v exa) = "" ]]; then missa=('exa '$missa); fi
+if [[ $(command -v tmux) = "" ]]; then missa=('tmux '$missa); fi
+if [[ $(command -v mc) = "" ]]; then missa=('mc '$missa); fi
 
 # placing dots
 function place_dots () {
@@ -134,10 +138,14 @@ function install_packages () {
   if [[ ($missa != '') ]]
   then
     sudo apt install $missa -y
-  else ; fi
+  else; fi
   if [[ ($missb != '') ]]
   then
     yes | brew install $missb
+  else; fi
+  if [[ ($missc != '') ]]
+  then
+    cargo install $missc
   else; fi
   if [[ ($place = 'y') ]]
   then
