@@ -1,8 +1,8 @@
 ### Todo v1.0 ###
-installers for oh-my-zsh, p10k, brew, rust, navi !DONE!
-actually add all the needed packages to the check
+installers for oh-my-zsh, p10k, brew, rust, navi* - except rust
+actually add all the needed packages to the check* - nearly?
 learn to write less shit code
 ### ideas idk ###
-fdterm configs
+tmux configs*
 i3 gaps configs
 shit like that maybe
