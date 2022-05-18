@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # check architecture 
-if [[ $(uname -m) = *'arm'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
+if [[ $(uname -m) != *'arm'* ]]; then print 'This script is for arm systems only, please run install.sh instead' && exit 1; else; fi
 
 # exit if a command fails
 set -e
@@ -99,21 +99,6 @@ function install_p10k () {
   fi
 }
 
-function install_brew () {
-  print "Homebrew doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Homebrew'
-    /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
-    exit 0
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
-
 function install_rust () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
@@ -149,10 +134,9 @@ if [[ ($SHELL != *'zsh'* ) ]]; then default=(true); else; fi
 if [[ $(cat /proc/$$/cmdline) != *'zsh'* ]]; then not_zsh; else; fi
 if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
 if $([ ! -f "$p10k" ]); then install_p10k; else; fi
-if [[ $(command -v brew) = "" ]]; then intall_brew; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
-if [[ $(command -v navi) = "" ]]; then missb=('navi '$missb); fi
+if [[ $(command -v navi) = "" ]]; then missc=('navi '$missc); fi
 if [[ $(command -v gitui) = "" ]]; then missc=('gitui '$missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=('curl '$missa); fi
 if [[ $(command -v batcat) = "" ]]; then missa=('bat '$missa); fi
