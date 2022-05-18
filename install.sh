@@ -94,6 +94,34 @@ function install_p10k () {
   fi
 }
 
+function install_brew () {
+  print "Homebrew doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  read -sq place
+  if [[ ($install = 'y') ]]
+  then
+    print 'Okay, installing Homebrew'
+    /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
+  else
+    print 'Okay buddy'
+    exit 0
+  fi
+}
+
+function install_cargo () {
+  print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  read -sq place
+  if [[ ($install = 'y') ]]
+  then
+    print 'Okay, installing Rust'
+    curl https://sh.rustup.rs -sSf | sh
+    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
+  else
+    print 'Okay buddy'
+    exit 0
+  fi
+}
+
 function install_auto () {
   print "Zsh Autosuggestions doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   if [[ ($install = 'y') ]]
