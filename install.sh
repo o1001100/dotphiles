@@ -108,7 +108,7 @@ function install_brew () {
   fi
 }
 
-function install_cargo () {
+function install_rust () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($install = 'y') ]]
