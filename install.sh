@@ -69,7 +69,7 @@ function not_zsh () {
 function install_omzsh () {
   print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
-  if [[ ($install = 'y') ]]
+  if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Oh My Zsh'
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -83,7 +83,7 @@ function install_omzsh () {
 function install_p10k () {
   print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
-  if [[ ($install = 'y') ]]
+  if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Powerlevel10k'
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -97,7 +97,7 @@ function install_p10k () {
 function install_brew () {
   print "Homebrew doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
-  if [[ ($install = 'y') ]]
+  if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Homebrew'
     /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -111,7 +111,7 @@ function install_brew () {
 function install_rust () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
-  if [[ ($install = 'y') ]]
+  if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Rust'
     curl https://sh.rustup.rs -sSf | sh
@@ -124,7 +124,8 @@ function install_rust () {
 
 function install_auto () {
   print "Zsh Autosuggestions doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  if [[ ($install = 'y') ]]
+  read -sq place
+  if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Zsh Autosuggestions'
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
