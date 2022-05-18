@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # check architecture 
-if [[ $(uname -m) = *'arm'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
+if [[ $(uname -m) = *'aarch'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
 
 # exit if a command fails
 set -e
