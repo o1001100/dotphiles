@@ -23,7 +23,6 @@ local missc=('')
 local install=()
 local zsh=()
 local omzsh=(~'/.oh-my-zsh')
-local p10k=(~'/.p10k.zsh')
 local missing=('')
 local default=()
 local current=()
@@ -91,8 +90,7 @@ function install_p10k () {
   then
     print 'Okay, installing Powerlevel10k'
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
-    exit 0
+    print '\nFinished, continuing installer\n'
   else
     print 'Okay buddy'
     exit 0
@@ -133,7 +131,7 @@ if [[ $(command -v zsh) = "" ]]; then install_zsh; else; fi
 if [[ ($SHELL != *'zsh'* ) ]]; then default=(true); else; fi
 if [[ $(cat /proc/$$/cmdline) != *'zsh'* ]]; then not_zsh; else; fi
 if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
-if $([ ! -f "$p10k" ]); then install_p10k; else; fi
+if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
 if [[ $(command -v navi) = "" ]]; then missc=('navi '$missc); fi
