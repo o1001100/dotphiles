@@ -155,8 +155,7 @@ function install_packages () {
   print '\nInstalling all required packages'
   for i in $missa; do
     sudo apt install -y $i
-  done 
-  else; fi
+  done
   if [[ ($missb != '') ]]
   then
     yes | brew install $missb
