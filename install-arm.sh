@@ -134,13 +134,13 @@ if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
-if [[ $(command -v navi) = "" ]]; then missc=('navi\n'$missc); fi
-if [[ $(command -v gitui) = "" ]]; then missc=('gitui\n'$missc); fi
-if [[ $(command -v curl) = "" ]]; then missa=('curl\n'$missa); fi
-if [[ $(command -v batcat) = "" ]]; then missa=('bat\n'$missa); fi
-if [[ $(command -v exa) = "" ]]; then missa=('exa\n'$missa); fi
-if [[ $(command -v tmux) = "" ]]; then missa=('tmux\n'$missa); fi
-if [[ $(command -v mc) = "" ]]; then missa=('mc\n'$missa); fi
+if [[ $(command -v navi) = "" ]]; then missc=('navi '$missc); fi
+if [[ $(command -v gitui) = "" ]]; then missc=('gitui '$missc); fi
+if [[ $(command -v curl) = "" ]]; then missa=('curl '$missa); fi
+if [[ $(command -v batcat) = "" ]]; then missa=('bat '$missa); fi
+if [[ $(command -v exa) = "" ]]; then missa=('exa '$missa); fi
+if [[ $(command -v tmux) = "" ]]; then missa=('tmux '$missa); fi
+if [[ $(command -v mc) = "" ]]; then missa=('mc '$missa); fi
 
 # placing dots
 function place_dots () {
@@ -153,9 +153,9 @@ function place_dots () {
 # installing packages
 function install_packages () {
   print '\nInstalling all required packages'
-  if [[ ($missa != '') ]]
-  then
-    sudo apt install $missa -y
+  for i in $missa; do
+    sudo apt install -y $i
+  done 
   else; fi
   if [[ ($missb != '') ]]
   then
