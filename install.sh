@@ -20,10 +20,9 @@ local new=(print '\n')
 local missa=('')
 local missb=('')
 local missc=('')
-local install=()
+local ins=()
 local zsh=()
 local omzsh=(~'/.oh-my-zsh')
-local p10k=(~'/.p10k.zsh')
 local missing=('')
 local default=()
 local current=()
@@ -151,13 +150,13 @@ if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); th
 if [[ $(command -v brew) = "" ]]; then intall_brew; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
-if [[ $(command -v navi) = "" ]]; then missb=('navi\n'$missb); fi
-if [[ $(command -v gitui) = "" ]]; then missc=('gitui\n'$missc); fi
-if [[ $(command -v curl) = "" ]]; then missa=('curl\n'$missa); fi
-if [[ $(command -v batcat) = "" ]]; then missa=('bat\n'$missa); fi
-if [[ $(command -v exa) = "" ]]; then missa=('exa\n'$missa); fi
-if [[ $(command -v tmux) = "" ]]; then missa=('tmux '$missa); fi
-if [[ $(command -v mc) = "" ]]; then missa=('mc\n'$missa); fi
+if [[ $(command -v navi) = "" ]]; then missb=(navi $missb); fi
+if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
+if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
+if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
+if [[ $(command -v exa) = "" ]]; then missa=(exa $missa); fi
+if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
+if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
 
 # placing dots
 function place_dots () {
@@ -196,7 +195,7 @@ function install_packages () {
 function dots () {
   print 'Do you want me to place all the dotfiles for you? (Y/n)'
   read -sq place
-  if [[ ($install = 'y') ]]
+  if [[ ($ins = 'y') ]]
   then
     install_packages
   elif [[ $place = 'y' ]]
