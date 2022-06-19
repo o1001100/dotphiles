@@ -7,10 +7,10 @@ if [[ $(uname -m) != *'aarch'* ]]; then print 'This script is for arm systems on
 set -e
 
 # keep track of the last executed command
-trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+#trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 
 # echo an error message before exiting
-trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
+#trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
 
 # checking user
 if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
@@ -137,15 +137,17 @@ if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 if [[ $(command -v navi) = "" ]]; then missc=(navi $missc); fi
 if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
-if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
+if [[ $(command -v bat) = "" ]]; then missc=(bat $missc); fi
 if [[ $(command -v exa) = "" ]]; then missa=(exa $missa); fi
 if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
 if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
+if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
+if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
 
 # placing dots
 function place_dots () {
   print '\nPlacing all dotfiles'
-  cp -ruv ./home/. ~/
+  rsync -crv ./home/. ~/
   print 'Finished, terminating installer'
   exit 0
 }
@@ -155,7 +157,8 @@ function install_packages () {
   print '\nInstalling all required packages'
   if [[ ($missa != '') ]]
   then
-    sudo apt install -y '$missa'
+    if [[ $(sudo apt install -y $missa) ]]; then; else pkg install -y $missa; fi
+    #sudo apt install -y '$missa'
   else; fi
   if [[ ($missb != '') ]]
   then
@@ -193,15 +196,20 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages are missing: ' $missa' '$missb' '$missc
+  print 'The following packages are missing:' $missa $missb $missc
   print 'Do you want me to install them for you? (Y/n)'
-  read -sq install
-  dots
+  read -sq ins
+  if [[ ($ins = 'y') ]]
+  then
+    dots
+  else
+    dots
+  fi
 }
 
-if [[ ($missa = '' && $missb = '') ]]
+if [[ ($missa = '' && $missb = '' && $missc = '') ]]
 then
-  dots
+  packages
 else
   packages
 fi
