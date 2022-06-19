@@ -209,7 +209,7 @@ function packages () {
 
 if [[ ($missa = '' && $missb = '' && $missc = '') ]]
 then
-  packages
+  dots
 else
   packages
 fi

@@ -157,11 +157,13 @@ if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
 if [[ $(command -v exa) = "" ]]; then missa=(exa $missa); fi
 if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
 if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
+if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
+if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
 
 # placing dots
 function place_dots () {
   print '\nPlacing all dotfiles'
-  cp -ruv ./home/. ~/
+  rsync -crv ./home/. ~/
   print 'Finished, terminating installer'
   exit 0
 }
@@ -211,8 +213,13 @@ function dots () {
 function packages () {
   print 'The following packages are missing: ' $missa' '$missb' '$missc
   print 'Do you want me to install them for you? (Y/n)'
-  read -sq install
-  dots
+  read -sq ins
+  if [[ ($ins = 'y') ]]
+  then
+    dots
+  else
+    dots
+  fi
 }
 
 if [[ ($missa = '' && $missb = '') ]]
