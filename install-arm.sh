@@ -3,14 +3,14 @@
 # check architecture 
 if [[ $(uname -m) != *'aarch'* ]]; then print 'This script is for arm systems only, please run install.sh instead' && exit 1; else; fi
 
-# exit if a command fails
-set -e
+function testing_crap () {
+  set -e
+  trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+  trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
+}
 
-# keep track of the last executed command
-#trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
-
-# echo an error message before exiting
-#trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
+# uncomment to enable the shit above
+#testing_crap
 
 # checking user
 if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
