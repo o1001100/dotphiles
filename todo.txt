@@ -2,7 +2,6 @@
 installers for oh-my-zsh, p10k, brew, rust, navi* - except rust
 actually add all the needed packages to the check* - nearly?
 learn to write less shit code
+tmux conf?
 ### ideas idk ###
-tmux configs*
-i3 gaps configs
-shit like that maybe
+use a file for package names instead of writing a new line for each package to install like a complete moron
