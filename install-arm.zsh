@@ -17,9 +17,10 @@ if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 
 # setting variables
 local missa=('')
-local missb=('')
 local missc=('')
 local missp=('')
+local missn=('')
+local rsh=(false)
 local ins=()
 local omzsh=(~'/.oh-my-zsh')
 
@@ -46,6 +47,7 @@ function install_p10k () {
     print 'Okay, installing Powerlevel10k'
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     print '\nFinished, continuing installer\n'
+    rsh=(true)
   else
     print 'Okay buddy'
     exit 0
@@ -59,8 +61,23 @@ function install_rust () {
   then
     print 'Okay, installing Rust'
     curl https://sh.rustup.rs -sSf | sh
-    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
+    print '\nFinished, continuing installer\n'
+    rsh=(true)
+  else
+    print 'Okay buddy'
     exit 0
+  fi
+}
+
+function install_npm () {
+  print "NPM doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  read -sq place
+  if [[ ($place = 'y') ]]
+  then
+    print 'Okay, installing NPM'
+    sudo apt install npm -y
+    print '\nFinished, continuing installer\n'
+    rsh=(true)
   else
     print 'Okay buddy'
     exit 0
@@ -71,6 +88,8 @@ function install_rust () {
 if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
+if [[ $(command -v npm) = "" ]]; then install_npm; else; fi
+if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
 if [[ $(command -v navi) = "" ]]; then missc=(navi $missc); fi
@@ -82,6 +101,7 @@ if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
 if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
 if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
 if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
+if [[ $(command -v gtop) = "" ]]; then missn=(gtop $missn); fi
 
 # placing dots
 function place_dots () {
@@ -102,6 +122,10 @@ function install_packages () {
   if [[ ($missc != '') ]]
   then
     cargo install $missc
+  else; fi
+  if [[ ($missn != '') ]]
+  then
+    sudo npm install $missn -g
   else; fi
   if [[ ($missp != '') ]]
   then
@@ -139,7 +163,7 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages and/or plugins are missing:' $missa $missc $missp
+  print 'The following packages and/or plugins are missing:' $missa $missc $missn $missp
   print "ZSH will complain if you are missing plugins don't blame me!"
   print 'Do you want me to install them for you? (Y/n)'
   read -sq ins
@@ -151,7 +175,7 @@ function packages () {
   fi
 }
 
-if [[ ($missa = '' && $missc = '' && $missp = '') ]]
+if [[ ($missa = '' && $missc = '' && $missp = '' && $missn = '') ]]
 then
   dots
 else
