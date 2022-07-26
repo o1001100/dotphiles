@@ -19,6 +19,7 @@ if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 local missa=('')
 local missb=('')
 local missc=('')
+local missp=('')
 local ins=()
 local omzsh=(~'/.oh-my-zsh')
 
@@ -81,26 +82,13 @@ function install_rust () {
   fi
 }
 
-function install_auto () {
-  print "Zsh Autosuggestions doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Zsh Autosuggestions'
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    print '\nFinished, continuing installer\n'
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
-
 # checking for packages
 if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; else; fi
 if [[ $(command -v brew) = "" ]]; then intall_brew; else; fi
 if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
-if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then install_auto; else; fi
+if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
+if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
 if [[ $(command -v navi) = "" ]]; then missb=(navi $missb); fi
 if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
@@ -134,6 +122,14 @@ function install_packages () {
   then
     cargo install $missc
   else; fi
+  if [[ ($missp != '') ]]
+  then
+    for f in $missp
+    do
+      git clone https://github.com/zsh-users/$f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/$f
+    done
+    print 'You will need to restart your current shell to make new plugins availiable'
+  else; fi
   if [[ ($place = 'y') ]]
   then
     print 'All missing packages have been installed, continuing'
@@ -162,7 +158,8 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages are missing: ' $missa' '$missb' '$missc
+  print 'The following packages and/or plugins are missing:' $missa $missb $missc $missp
+  print "ZSH will complain if you are missing plugins don't blame me!"
   print 'Do you want me to install them for you? (Y/n)'
   read -sq ins
   if [[ ($ins = 'y') ]]
@@ -173,7 +170,7 @@ function packages () {
   fi
 }
 
-if [[ ($missa = '' && $missb = '') ]]
+if [[ ($missa = '' && $missb = '' && $missc = '' && $missp = '') ]]
 then
   dots
 else
