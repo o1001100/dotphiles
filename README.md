@@ -1,2 +1,2 @@
 # dotfiles
-just don't look at this
+my dotfiles and their installer - the bloatifier 10000
