@@ -70,12 +70,12 @@ function install_rust () {
 }
 
 function install_npm () {
-  print "NPM doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  print "Node doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($place = 'y') ]]
   then
-    print 'Okay, installing NPM'
-    sudo apt install npm -y
+    print 'Okay, installing Node'
+    if [[ $(sudo apt install -y nodejs) ]]; then; else pkg install -y nodejs; fi
     print '\nFinished, continuing installer\n'
     rsh=(true)
   else
@@ -125,7 +125,7 @@ function install_packages () {
   else; fi
   if [[ ($missn != '') ]]
   then
-    sudo npm install $missn -g
+    if [[ $(sudo npm install $missn -g) ]]; then; else npm install $missn -g; fi
   else; fi
   if [[ ($missp != '') ]]
   then

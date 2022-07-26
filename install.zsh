@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # check architecture 
-if [[ $(uname -m) = *'aarch'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
+#if [[ $(uname -m) = *'aarch'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
 
 function testing_crap () {
   set -e
@@ -86,12 +86,12 @@ function install_rust () {
 }
 
 function install_npm () {
-  print "NPM doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  print "Node doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($place = 'y') ]]
   then
-    print 'Okay, installing NPM'
-    sudo apt install npm -y
+    print 'Okay, installing Node'
+    sudo apt install nodejs -y
     print '\nFinished, continuing installer\n'
   else
     print 'Okay buddy'
