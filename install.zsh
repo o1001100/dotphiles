@@ -111,6 +111,7 @@ if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlight
 if [[ $(command -v navi) = "" ]]; then missb=(navi $missb); fi
 if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
+if [[ $(command -v nvim) = "" ]]; then missa=(neovim $missa); fi
 if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
 if [[ $(command -v exa) = "" ]]; then missa=(exa $missa); fi
 if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
