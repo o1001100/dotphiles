@@ -91,7 +91,7 @@ function install_npm () {
   if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Node'
-    sudo apt install nodejs -y
+    sudo apt install nodejs npm -y
     print '\nFinished, continuing installer\n'
   else
     print 'Okay buddy'

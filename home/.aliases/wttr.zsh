@@ -1,0 +1,1 @@
+alias wttr='~/.wttr.zsh'
