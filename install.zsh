@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# check architecture 
+# check architecture
 #if [[ $(uname -m) = *'aarch'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
 
 function testing_crap () {
@@ -24,6 +24,22 @@ local missn=('')
 local rsh=(false)
 local ins=()
 local omzsh=(~'/.oh-my-zsh')
+
+function install_paru () {
+  print "Paru doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+  read -sq place
+  if [[ ($place = 'y') ]]
+  then
+    print 'Okay, installing Paru'
+    sudo pacman -S --needed --noconfirm base-devel git
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+  else
+    print 'Okay buddy'
+    exit 0
+  fi
+}
 
 function install_omzsh () {
   print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
@@ -55,21 +71,6 @@ function install_p10k () {
   fi
 }
 
-function install_brew () {
-  print "Homebrew doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Homebrew'
-    /bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    print '\nFinished, continuing installer\n'
-    rsh=(true)
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
-
 function install_rust () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
@@ -91,7 +92,7 @@ function install_npm () {
   if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Node'
-    sudo apt install nodejs npm -y
+    paru -S nodejs npm --noconfirm
     print '\nFinished, continuing installer\n'
   else
     print 'Okay buddy'
@@ -100,16 +101,16 @@ function install_npm () {
 }
 
 # checking for packages
-if $([ ! -d "$omzsh" ]); then install_omzsh; else; fi
-if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; else; fi
-if [[ $(command -v brew) = "" ]]; then intall_brew; else; fi
-if [[ $(command -v cargo) = "" ]]; then install_rust; else; fi
-if [[ $(command -v npm) = "" ]]; then install_npm; else; fi
+if [[ $(command -v paru) = "" ]]; then install_paru; fi
+if $([ ! -d "$omzsh" ]); then install_omzsh; fi
+if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; fi
+if [[ $(command -v cargo) = "" ]]; then install_rust; fi
+if [[ $(command -v npm) = "" ]]; then install_npm; fi
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
-if [[ $(command -v navi) = "" ]]; then missb=(navi $missb); fi
-if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
+if [[ $(command -v navi) = "" ]]; then missa=(navi $missa); fi
+if [[ $(command -v gitui) = "" ]]; then missa=(gitui $missa); fi
 if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
 if [[ $(command -v nvim) = "" ]]; then missa=(neovim $missa); fi
 if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
@@ -118,13 +119,16 @@ if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
 if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
 if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
 if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
+if [[ $(command -v cbonsai) = "" ]]; then missa=(cbonsai $missa); fi
 if [[ $(command -v gtop) = "" ]]; then missn=(gtop $missn); fi
 
 # placing dots
 function place_dots () {
   print '\nPlacing all dotfiles'
   rsync -crv ./home/. ~/
-  print 'Finished, terminating installer'
+  print 'Finished placing dots, symlinking zsh config'
+  if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'
+  print 'All done, quitting installer'
   exit 0
 }
 
@@ -133,7 +137,7 @@ function install_packages () {
   print '\nInstalling all required packages'
   if [[ ($missa != '') ]]
   then
-    sudo apt install $missa -y
+    paru -S $missa --noconfirm
   else; fi
   if [[ ($missb != '') ]]
   then
