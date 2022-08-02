@@ -120,6 +120,7 @@ if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
 if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
 if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
 if [[ $(command -v cbonsai) = "" ]]; then missa=(cbonsai $missa); fi
+if [[ $(command -v tailscale) = "" ]]; then missa=(tailscale $missa); fi
 if [[ $(command -v gtop) = "" ]]; then missn=(gtop $missn); fi
 
 # placing dots
@@ -127,7 +128,7 @@ function place_dots () {
   print '\nPlacing all dotfiles'
   rsync -crv ./home/. ~/
   print 'Finished placing dots, symlinking zsh config'
-  if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'
+  if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'; fi
   print 'All done, quitting installer'
   exit 0
 }
@@ -138,6 +139,7 @@ function install_packages () {
   if [[ ($missa != '') ]]
   then
     paru -S $missa --noconfirm
+    if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
   else; fi
   if [[ ($missb != '') ]]
   then
