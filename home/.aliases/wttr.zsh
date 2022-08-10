@@ -1,1 +1,1 @@
-alias wttr='~/.wttr.zsh'
+alias wttr='curl "wttr.in/?0F"'

@@ -16,6 +16,7 @@ function testing_crap () {
 if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 
 # setting variables
+local aur=$(<aur.pkgs)
 local missa=('')
 local missb=('')
 local missc=('')
@@ -109,24 +110,17 @@ if [[ $(command -v npm) = "" ]]; then install_npm; fi
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
-if [[ $(command -v navi) = "" ]]; then missa=(navi $missa); fi
-if [[ $(command -v gitui) = "" ]]; then missa=(gitui $missa); fi
-if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
-if [[ $(command -v nvim) = "" ]]; then missa=(neovim $missa); fi
-if [[ $(command -v batcat) = "" ]]; then missa=(bat $missa); fi
-if [[ $(command -v exa) = "" ]]; then missa=(exa $missa); fi
-if [[ $(command -v tmux) = "" ]]; then missa=(tmux $missa); fi
-if [[ $(command -v mc) = "" ]]; then missa=(mc $missa); fi
-if [[ $(command -v rsync) = "" ]]; then missa=(rsync $missa); fi
-if [[ $(command -v fzf) = "" ]]; then missa=(fzf $missa); fi
-if [[ $(command -v cbonsai) = "" ]]; then missa=(cbonsai $missa); fi
-if [[ $(command -v tailscale) = "" ]]; then missa=(tailscale $missa); fi
-if [[ $(command -v gtop) = "" ]]; then missn=(gtop $missn); fi
+
+for f in $(<aur.pkgs)
+do
+  if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+done
 
 # placing dots
 function place_dots () {
   print '\nPlacing all dotfiles'
   rsync -crv ./home/. ~/
+  rsync -crv ./bin/. /usr/local/bin
   print 'Finished placing dots, symlinking zsh config'
   if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'; fi
   print 'All done, quitting installer'
@@ -140,18 +134,6 @@ function install_packages () {
   then
     paru -S $missa --noconfirm
     if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
-  else; fi
-  if [[ ($missb != '') ]]
-  then
-    yes | brew install $missb
-  else; fi
-  if [[ ($missc != '') ]]
-  then
-    cargo install $missc
-  else; fi
-  if [[ ($missn != '') ]]
-  then
-    sudo npm install $missn -g
   else; fi
   if [[ ($missp != '') ]]
   then
@@ -189,7 +171,7 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages and/or plugins are missing:' $missa $missb $missc $missn $missp
+  print 'The following packages and/or plugins are missing:' $missa $missp
   print "ZSH will complain if you are missing plugins don't blame me!"
   print 'Do you want me to install them for you? (Y/n)'
   read -sq ins
@@ -201,7 +183,7 @@ function packages () {
   fi
 }
 
-if [[ ($missa = '' && $missb = '' && $missc = '' && $missp = '' && $missn = '') ]]
+if [[ ($missa = '' && $missp = '') ]]
 then
   dots
 else
