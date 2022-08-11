@@ -41,7 +41,7 @@ function install_omzsh () {
   fi
 }
 
-function install_pacstall
+function install_pacstall () {
   print "Pacstall doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($place = 'y') ]]
@@ -108,7 +108,7 @@ if [[ $(command -v npm) = "" ]]; then install_npm; fi
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
 if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
-if [[ $(command -v nala) = "" ]]; then misss=(nala-deb $misss); fi)
+if [[ $(command -v nala) = "" ]]; then misss=(nala-deb $misss); fi
 if [[ $(command -v navi) = "" ]]; then missc=(navi $missc); fi
 if [[ $(command -v gitui) = "" ]]; then missc=(gitui $missc); fi
 if [[ $(command -v curl) = "" ]]; then missa=(curl $missa); fi
