@@ -14,10 +14,21 @@ super + space
 super + shift + a
     rofi -show window
 
+# screenshot
+super + shift + s
+    flameshot gui
+
 # reload sxhkd
 super + Escape
     pkill -USR1 -x sxhkd
 
+# volume control
+XF86AudioLowerVolume
+    amixer set Master 5%-
+XF86AudioRaiseVolume
+    amixer set Master 5%+
+XF86AudioMute
+    amixer set Master toggle
 
 #################
 # bspwm hotkeys #

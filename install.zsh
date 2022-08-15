@@ -1,30 +1,21 @@
 #!/bin/zsh
 
-# check architecture
-#if [[ $(uname -m) = *'aarch'* ]]; then print 'This script is for x86 systems only, please run install-arm.sh instead' && exit 1; else; fi
-
 function testing_crap () {
   set -e
   trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
   trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
 }
 
-# uncomment to enable the shit above
+# uncomment to enable the (broken) error capture above
 #testing_crap
 
 # checking user
 if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 
 # setting variables
-local aur=$(<aur.pkgs)
 local missa=('')
-local missb=('')
-local missc=('')
 local missp=('')
-local missn=('')
 local rsh=(false)
-local ins=()
-local omzsh=(~'/.oh-my-zsh')
 
 function install_paru () {
   print "Paru doesn't appear to be installed, would you like me to install it for you? (Y/n)"
@@ -42,37 +33,43 @@ function install_paru () {
   fi
 }
 
-function install_omzsh () {
-  print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
+function install_omz () {
+  if $([ ! -d "$HOME/.oh-my-zsh" ])
   then
-    print 'Okay, installing Oh My Zsh'
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
-    exit 0
-  else
-    print 'Okay buddy'
-    exit 0
+    print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+    read -sq place
+    if [[ ($place = 'y') ]]
+    then
+      print 'Okay, installing Oh My Zsh'
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
+      exit 0
+    else
+      print 'Okay buddy'
+      exit 0
+    fi
   fi
 }
 
 function install_p10k () {
-  print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
+  if $([ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ])
   then
-    print 'Okay, installing Powerlevel10k'
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    print '\nFinished, continuing installer\n'
-    rsh=(true)
-  else
-    print 'Okay buddy'
-    exit 0
+    print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+    read -sq place
+    if [[ ($place = 'y') ]]
+    then
+      print 'Okay, installing Powerlevel10k'
+      git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+      print '\nFinished, continuing installer\n'
+      rsh=(true)
+    else
+      print 'Okay buddy'
+      exit 0
+    fi
   fi
 }
 
-function install_rust () {
+function install_cargo () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($place = 'y') ]]
@@ -87,41 +84,56 @@ function install_rust () {
   fi
 }
 
-function install_npm () {
-  print "Node doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Node'
-    paru -S nodejs npm --noconfirm
-    print '\nFinished, continuing installer\n'
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
-
 # checking for packages
-if [[ $(command -v paru) = "" ]]; then install_paru; fi
-if $([ ! -d "$omzsh" ]); then install_omzsh; fi
-if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; fi
-if [[ $(command -v cargo) = "" ]]; then install_rust; fi
-if [[ $(command -v npm) = "" ]]; then install_npm; fi
-if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
-if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
-if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
+#if [[ $(command -v paru) = "" ]]; then install_paru; fi
+#if [[ $(command -v omz) = "" ]]; then install_omzsh; fi
+#if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]); then install_p10k; fi
+#if [[ $(command -v cargo) = "" ]]; then install_rust; fi
+#if [[ $(command -v npm) = "" ]]; then install_npm; fi
+#if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
+#if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]); then missp=(zsh-autosuggestions $missp); fi
+#if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]); then missp=(zsh-syntax-highlighting $missp); fi
+
+# check for installed prerequisites
+
+for f in $(<prq.pkgs)
+do
+  if [[ $(command -v "$f") = "" ]]; then install_$f; fi
+done
+
+# check for installed plugins
+
+for f in $(<plg.pkgs)
+do
+  if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
+done
+
+# check for installed packages
 
 for f in $(<aur.pkgs)
 do
   if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
 done
 
+# promt user to restart shell session if needed
+if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
+
 # placing dots
 function place_dots () {
-  print '\nPlacing all dotfiles'
-  rsync -crv ./home/. ~/
+  print '\nSetting up directories'
+  if $([ ! -d '$HOME/.aliases' ]); then mkdir $HOME/.aliases; fi
+  if $([ ! -d '$HOME/.config' ]); then mkdir $HOME/.config; fi
+  if $([ ! -d '$HOME/.local' ]); then mkdir $HOME/.local; fi
+  if $([ ! -d '$HOME/.oh-my-zsh' ]); then mkdir $HOME/.oh-my-zsh; fi
+  if $([ ! -d '$HOME/.themes' ]); then mkdir $HOME/.themes; fi
+  print '\nPlacing dotfiles'
+  rsync -crv ./aliases/. $HOME/.aliases
+  rsync -crv ./config/. $HOME/.config
+  rsync -crv ./local/. $HOME/.local
+  rsync -crv ./oh-my-zsh/. $HOME/.oh-my-zsh
+  rsync -crv ./themes/. $HOME/.themes
   rsync -crv ./bin/. /usr/local/bin
-  print 'Finished placing dots, symlinking zsh config'
+  print '\nSymlinking ZSH config'
   if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'; fi
   print 'All done, quitting installer'
   exit 0
