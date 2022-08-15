@@ -16,6 +16,7 @@ if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
 local missa=('')
 local missp=('')
 local rsh=(false)
+local dots=$(pwd)
 
 function install_paru () {
   print "Paru doesn't appear to be installed, would you like me to install it for you? (Y/n)"
@@ -24,9 +25,8 @@ function install_paru () {
   then
     print 'Okay, installing Paru'
     sudo pacman -S --needed --noconfirm base-devel git
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si
+    git clone https://aur.archlinux.org/paru.git /tmp/paru
+    ( cd paru && makepkg -si )
   else
     print 'Okay buddy'
     exit 0
@@ -127,12 +127,12 @@ function place_dots () {
   if $([ ! -d '$HOME/.oh-my-zsh' ]); then mkdir $HOME/.oh-my-zsh; fi
   if $([ ! -d '$HOME/.themes' ]); then mkdir $HOME/.themes; fi
   print '\nPlacing dotfiles'
-  rsync -crv ./aliases/. $HOME/.aliases
-  rsync -crv ./config/. $HOME/.config
-  rsync -crv ./local/. $HOME/.local
-  rsync -crv ./oh-my-zsh/. $HOME/.oh-my-zsh
-  rsync -crv ./themes/. $HOME/.themes
-  rsync -crv ./bin/. /usr/local/bin
+  rsync -crv $dots/aliases/. $HOME/.aliases
+  rsync -crv $dots/config/. $HOME/.config
+  rsync -crv $dots/local/. $HOME/.local
+  rsync -crv $dots/oh-my-zsh/. $HOME/.oh-my-zsh
+  rsync -crv $dots/themes/. $HOME/.themes
+  rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
   if $([ ! -d '~/.zshrc' ]); then ln -s '~/.config/zsh/zshrc' '~/.zshrc'; fi
   print 'All done, quitting installer'
