@@ -6,4 +6,4 @@ tmux conf?
 ### ideas idk ###
 use a file for package names instead of writing a new line for each package to install like a complete moron
 
-!!!!!! finish new directory structure in installer !!!!!!
+####make dotfile moving less stupid####

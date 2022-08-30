@@ -1,0 +1,8 @@
+: 1661144098:0;ls
+: 1661144099:0;la
+: 1661144105:0;rm .zsh_history
+: 1661144107:0;clear
+: 1661144109:0;la
+: 1661144117:0;ls $ZDOTDIR
+: 1661144151:0;cp .config/zsh dotphiles/config/
+: 1661144157:0;cp -r .config/zsh dotphiles/config/
