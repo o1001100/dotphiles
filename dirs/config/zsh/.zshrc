@@ -27,7 +27,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -130,3 +130,9 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=fg+:#908caa,bg+:#191724,hl+:#908caa
  --color=info:#9ccfd8,prompt:#f6c177,pointer:#c4a7e7
  --color=marker:#ebbcba,spinner:#eb6f92,header:#ebbcba"
+
+# gpg keys
+export GPG_TTY=$(tty)
+
+# disable autocd cause it sucks
+unsetopt autocd

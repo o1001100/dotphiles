@@ -205,7 +205,7 @@ function place_dots () {
   #rsync -crv $dots/themes/. $HOME/.themes
   #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
-  if $([ ! -d '~/.zshenv' ]); then ln -s '~/.config/zsh/.zshenv' '~/.zshenv'; fi
+  if $([ ! -d "$HOME/.zshenv" ]); then ln -s "$HOME/.config/zsh/.zshenv" "$HOME/.zshenv"; fi
   print 'All done, quitting installer'
   exit 0
 }
@@ -215,7 +215,7 @@ function install_packages () {
   print '\nInstalling all required packages'
   if [[ ($missa != '') ]]
   then
-    if [[ ($missa = *"tailscale"*) ]]; then curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && sudo apt-get update; fi
+    if [[ ($missa = *"tailscale"*) && ($distro = *"debian"*) ]]; then curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && sudo apt-get update; fi
     eval $pkgman $missa
     if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
     if [[ ($missa = *"tealdeer"*) ]]; then cp completion/zsh_tealdeer /usr/share/zsh/site-functions/_tldr; fi
