@@ -1,43 +1,10 @@
 #!/bin/zsh
 
-function testing_crap () {
-  set -e
-  trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
-  trap 'echo "\"${last_command}\" command executed with exit code $?."' EXIT
-}
+######################################################################
 
-# uncomment to enable the (broken) error capture above
-#testing_crap
+###                      Installer functions                       ###
 
-# checking user
-if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
-
-# checking distro
-if [[ (-f /etc/os-release) ]]
-then
-  . /etc/os-release
-  local distro=$ID
-  if [[ ($distro = 'debian' || 'arch') ]]
-  then
-    print "\nRunning on $NAME \n"
-  else
-    print 'Unknow/unsupported distro, exiting'
-    exit 1
-  fi
-else
-  print 'Unknown/unsupported distro, exiting'
-  exit 1
-fi
-
-# setting variables
-local missa=('')
-local missc=('')
-local missp=('')
-local rsh=(false)
-local dots=$(pwd)
-local cargo=('cargo install')
-local full=(false)
-if [[ ($distro = debian) ]]; then local pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then local pkgman='paru -S --noconfirm --needed'; fi
+######################################################################
 
 function install_paru () {
   if [[ ($distro != arch) ]]; then return; fi
@@ -49,22 +16,6 @@ function install_paru () {
     sudo pacman -S --needed --noconfirm base-devel git
     git clone https://aur.archlinux.org/paru.git /tmp/paru
     ( cd paru && makepkg -si )
-    print '\nFinished, continuing installer\n'
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
-
-function install_pacstall () {
-  if [[ ($distro != debian) ]]; then return; fi
-  print "Pacstall doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Pacstall'
-    sudo apt-get install -y curl wget
-    sudo bash -c "$(curl -fsSL https://git.io/JsADh || wget -q https://git.io/JsADh -O -)"
     print '\nFinished, continuing installer\n'
   else
     print 'Okay buddy'
@@ -88,6 +39,7 @@ function install_omz () {
   fi
 }
 
+# installing Powerlevel10k
 function install_p10k () {
   if $([ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]); then return; fi
   print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
@@ -104,13 +56,14 @@ function install_p10k () {
   fi
 }
 
+# installing Rust and Cargo
 function install_cargo () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
   if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Rust'
-    curl https://sh.rustup.rs -sSf | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     print '\nFinished, continuing installer\n'
     rsh=(true)
   else
@@ -118,6 +71,105 @@ function install_cargo () {
     exit 0
   fi
 }
+
+# placing dotfiles
+function place_dots () {
+  print '\n Setting up directories and placing files'
+  if [[ ($full = true) ]]
+  then
+    for f in $(<$dots/configs/full.dir)
+    do
+      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  else
+    if $([ ! -d $HOME/.config ]); then mkdir $HOME/.config; fi
+    for f in $(<$dots/configs/lite.dir)
+    do
+      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  fi
+
+  print '\nSymlinking ZSH config'
+  if $([ -f $HOME/.zshenv ]); then rm -v $HOME/.zshenv; fi
+  if $([ ! -f $HOME/.zshenv ]); then ln -sv $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
+  print '\nAll done, quitting installer'
+  exit 0
+}
+
+# installing packages
+function install_packages () {
+  print '\nInstalling all required packages'
+  if [[ ($missa != '') ]]
+  then
+    if [[ ($missa = *"tailscale"*) && ($distro = *"debian"*) ]]; then curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && sudo apt-get update; fi
+    eval $pkgman $missa
+    if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
+    if [[ ($missa = *"tealdeer"*) ]]; then cp completion/zsh_tealdeer /usr/share/zsh/site-functions/_tldr; fi
+  fi
+  if [[ ($missc != '') ]]
+  then
+    eval $cargo $missc
+  fi
+  if [[ ($missp != '') ]]
+  then
+    for f in $missp
+    do
+      git clone https://github.com/zsh-users/$f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/$f
+    done
+    print '\nYou will need to restart your current shell to make new plugins availiable\n'
+  fi
+  if [[ ($place = 'y') ]]
+  then
+    print 'All missing packages have been installed, continuing'
+    place_dots
+  else
+    print 'Finished, terminating installer'
+    exit 0
+  fi
+}
+
+######################################################################
+
+###                           Setting up                           ###
+
+######################################################################
+
+# checking user
+if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
+
+# checking distro
+if [[ (-f /etc/os-release) ]]
+then
+  . /etc/os-release
+  local distro=$ID
+  if [[ ($distro != 'debian' || 'arch') ]]
+  then
+    print 'This installer currently only supports Debian Linux and Arch Linux'
+    print "Distro detected: $PRETTY_NAME"
+    print 'The script will now exit, please try again on a supported distro or install manually'
+    exit 1
+  elif [[ ($distro = *'debian'*) && ($PRETTY_NAME != *'sid'*) ]]
+  then
+    print 'This script currently only supports Debian Sid (unstable)'
+    print "Version detected: $PRETTY_NAME"
+    print 'The script will now exit, please try again on a supported version or install manually'
+  fi
+else
+  print 'Unknown/unsupported distro, exiting'
+  exit 1
+fi
+
+# setting variables
+local missa=('')
+local missc=('')
+local missp=('')
+local rsh=(false)
+local dots=$(pwd)
+local cargo=('cargo install')
+local full=(false)
+if [[ ($distro = debian) ]]; then local pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then local pkgman='paru -S --noconfirm --needed'; fi
 
 # start by asking whether installation should be full or lite
 
@@ -197,77 +249,11 @@ fi
 # promt user to restart shell session if needed
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 
-# placing dots
+######################################################################
 
-function place_dots () {
-  print '\n Setting up directories and placing files'
-  if [[ ($full = true) ]]
-  then
-    for f in $(<$dots/configs/full.dir)
-    do
-      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
-      rsync -crvl $dots/dirs/$f/. $HOME/.$f
-    done
-  else
-    if $([ ! -d $HOME/.config ]); then mkdir $HOME/.config; fi
-    for f in $(<$dots/configs/lite.dir)
-    do
-      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
-      rsync -crvl $dots/dirs/$f/. $HOME/.$f
-    done
-  fi
+###                        User preferences                        ###
 
-  #print '\nSetting up directories'
-  #if $([ ! -d '$HOME/.aliases' ]); then mkdir $HOME/.aliases; fi
-  #if $([ ! -d '$HOME/.config' ]); then mkdir $HOME/.config; fi
-  #if $([ ! -d '$HOME/.local' ]); then mkdir $HOME/.local; fi
-  #if $([ ! -d '$HOME/.oh-my-zsh' ]); then mkdir $HOME/.oh-my-zsh; fi
-  #if $([ ! -d '$HOME/.themes' ]); then mkdir $HOME/.themes; fi
-  #print '\nPlacing dotfiles'
-  #rsync -crv $dots/aliases/. $HOME/.aliases
-  #rsync -crv $dots/config/. $HOME/.config
-  #rsync -crv $dots/local/. $HOME/.local
-  #rsync -crv $dots/oh-my-zsh/. $HOME/.oh-my-zsh
-  #rsync -crv $dots/themes/. $HOME/.themes
-  #rsync -crv $dots/bin/. /usr/local/bin
-  print '\nSymlinking ZSH config'
-  if $([ -f $HOME/.zshenv ]); then rm -v $HOME/.zshenv; fi
-  if $([ ! -f $HOME/.zshenv ]); then ln -sv $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
-  print 'All done, quitting installer'
-  exit 0
-}
-
-# installing packages
-function install_packages () {
-  print '\nInstalling all required packages'
-  if [[ ($missa != '') ]]
-  then
-    if [[ ($missa = *"tailscale"*) && ($distro = *"debian"*) ]]; then curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && sudo apt-get update; fi
-    eval $pkgman $missa
-    if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
-    if [[ ($missa = *"tealdeer"*) ]]; then cp completion/zsh_tealdeer /usr/share/zsh/site-functions/_tldr; fi
-  fi
-  if [[ ($missc != '') ]]
-  then
-    eval $cargo $missc
-  fi
-  if [[ ($missp != '') ]]
-  then
-    for f in $missp
-    do
-      git clone https://github.com/zsh-users/$f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/$f
-    done
-    print '\nYou will need to restart your current shell to make new plugins availiable\n'
-  fi
-  if [[ ($place = 'y') ]]
-  then
-    print 'All missing packages have been installed, continuing'
-    place_dots
-  else
-    print 'Finished, terminating installer'
-    exit 0
-  fi
-}
+######################################################################
 
 # promt to place dotfiles
 function dots () {
@@ -299,6 +285,13 @@ function packages () {
   fi
 }
 
+######################################################################
+
+###                   Begin proper installations                   ###
+
+######################################################################
+
+# decide how to start
 if [[ ($missa = '' && $missp = '' && $missc = '') ]]
 then
   dots
@@ -306,5 +299,12 @@ else
   packages
 fi
 
+######################################################################
+
+###                         End of script                          ###
+
+######################################################################
+
+# this should never run
 print 'uh oh, I did a fucky wucky'
 exit 1
