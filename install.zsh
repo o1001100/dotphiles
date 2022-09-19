@@ -182,7 +182,6 @@ then
     fi
   done
 else
-  then
   for f in $(<$dots/configs/cargo-lite.pkgs)
   do
     if [[ ($(<$dots/configs/aur-lite.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
