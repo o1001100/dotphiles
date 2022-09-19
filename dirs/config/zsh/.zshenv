@@ -12,6 +12,3 @@ fi
 
 # set histfile location
 export HISTFILE="$ZDOTDIR/history"
-
-# cargo
-. "$HOME/.cargo/env"

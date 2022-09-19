@@ -121,7 +121,7 @@ function install_cargo () {
 
 # start by asking whether installation should be full or lite
 
-print "Inatall extra (gui) components? (Y/n)"
+print "Install extra (gui) components? (Y/n)"
 read -sq place
 if [[ ($place = 'y') ]]; then full=true; else full=false; fi
 
@@ -141,13 +141,25 @@ done
 
 # check for packages in distro package manager
 
-if [[ ($distro = *'arch'*) ]]
+if [[ ($distro = *'arch'*) && ($full = true) ]]
 then
   for f in $(<$dots/configs/aur.pkgs)
   do
     if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
   done
-elif [[ ($distro = *'debian'*) ]]
+elif [[ ($distro = *'arch'*) && ($full = false) ]]
+then
+  for f in $(<$dots/configs/aur-lite.pkgs)
+  do
+    if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+  done
+elif [[ ($distro = *'debian'*) && ($full = true) ]]
+then
+  for f in $(<$dots/configs/apt.pkgs)
+  do
+    if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
+  done
+elif [[ ($distro = *'debian'*) && ($full = false) ]]
 then
   for f in $(<$dots/configs/apt-lite.pkgs)
   do
@@ -159,10 +171,10 @@ fi
 
 for f in $(<$dots/configs/cargo.pkgs)
 do
-  if [[ $(<$dots/configs/aur.pkgs) != *"$f"* && $(eval $cargo --list) != *"$f"* && ($distro = arch) ]]
+  if [[ ($(<$dots/configs/aur.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
   then
     missc=($f $missc)
-  elif [[ $(eval $cargo --list) != *"$f"* ]]
+  elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
   then
     missc=($f $missc)
   fi
@@ -175,7 +187,7 @@ if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shel
 
 function place_dots () {
   print '\n Setting up directories and placing files'
-  if [[ (full = true) ]]
+  if [[ ($full = true) ]]
   then
     for f in $(<$dots/configs/full.dir)
     do
@@ -206,7 +218,7 @@ function place_dots () {
   #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
   if $([ -f $HOME/.zshenv ]); then rm -v $HOME/.zshenv; fi
-  if $([ ! -f $HOME/.zshenv ]); then ln -s $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
+  if $([ ! -f $HOME/.zshenv ]); then ln -sv $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
   print 'All done, quitting installer'
   exit 0
 }
