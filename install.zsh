@@ -169,16 +169,31 @@ fi
 
 # check for cargo packages
 
-for f in $(<$dots/configs/cargo.pkgs)
-do
-  if [[ ($(<$dots/configs/aur.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
+if [[ ($full = true) ]]
+then
+  for f in $(<$dots/configs/cargo.pkgs)
+  do
+    if [[ ($(<$dots/configs/aur.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
+    then
+      missc=($f $missc)
+    elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
+    then
+      missc=($f $missc)
+    fi
+  done
+else
   then
-    missc=($f $missc)
-  elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
-  then
-    missc=($f $missc)
-  fi
-done
+  for f in $(<$dots/configs/cargo-lite.pkgs)
+  do
+    if [[ ($(<$dots/configs/aur-lite.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
+    then
+      missc=($f $missc)
+    elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
+    then
+      missc=($f $missc)
+    fi
+  done
+fi
 
 # promt user to restart shell session if needed
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
