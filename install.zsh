@@ -179,14 +179,14 @@ function place_dots () {
   then
     for f in $(<$dots/configs/full.dir)
     do
-      if $([ ! -d '$HOME/.$f' ]); then mkdir $HOME/.$f; fi
+      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
       rsync -crv $dots/dirs/$f/. $HOME/.$f
     done
   else
-    if $([ ! -d '$HOME/config' ]); then mkdir $HOME/.config; fi
+    if $([ ! -d $HOME/.config ]); then mkdir $HOME/.config; fi
     for f in $(<$dots/configs/lite.dir)
     do
-      if $([ ! -d '$HOME/.$f' ]); then mkdir $HOME/.$f; fi
+      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
       rsync -crv $dots/dirs/$f/. $HOME/.$f
     done
   fi
@@ -205,8 +205,8 @@ function place_dots () {
   #rsync -crv $dots/themes/. $HOME/.themes
   #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
-  if $([ -d "$HOME/.zshenv" ]); then rm "$HOME/.zshenv"; fi
-  if $([ ! -d "$HOME/.zshenv" ]); then ln -s "$HOME/.config/zsh/.zshenv" "$HOME/.zshenv"; fi
+  if $([ -d $HOME/.zshenv ]); then rm $HOME/.zshenv; fi
+  if $([ ! -d $HOME/.zshenv ]); then ln -s $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
   print 'All done, quitting installer'
   exit 0
 }
