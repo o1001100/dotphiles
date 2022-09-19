@@ -123,7 +123,7 @@ function install_cargo () {
 
 print "Inatall extra (gui) components? (Y/n)"
 read -sq place
-if [[ ($place = 'y') ]]; then $full=true; fi
+if [[ ($place = 'y') ]]; then full=true; else full=false; fi
 
 # check for installer dependencies
 
@@ -175,7 +175,7 @@ if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shel
 
 function place_dots () {
   print '\n Setting up directories and placing files'
-  if [[ (full) ]]
+  if [[ (full = true) ]]
   then
     for f in $(<$dots/configs/full.dir)
     do
@@ -205,7 +205,7 @@ function place_dots () {
   #rsync -crv $dots/themes/. $HOME/.themes
   #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
-  if $([ -d $HOME/.zshenv ]); then rm $HOME/.zshenv; fi
+  if $([ -d $HOME/.zshenv ]); then rm -v $HOME/.zshenv; fi
   if $([ ! -d $HOME/.zshenv ]); then ln -s $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
   print 'All done, quitting installer'
   exit 0
