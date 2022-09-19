@@ -35,7 +35,8 @@ local missc=('')
 local missp=('')
 local rsh=(false)
 local dots=$(pwd)
-local cargo='cargo install'
+local cargo=('cargo install')
+local full=(false)
 if [[ ($distro = debian) ]]; then local pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then local pkgman='paru -S --noconfirm --needed'; fi
 
 function install_paru () {
@@ -118,16 +119,22 @@ function install_cargo () {
   fi
 }
 
+# start by asking whether installation should be full or lite
+
+print "Inatall extra (gui) components? (Y/n)"
+read -sq place
+if [[ ($place = 'y') ]]; then $full=true; fi
+
 # check for installer dependencies
 
-for f in $(<dep.pkgs)
+for f in $(<$dots/configs/dep.pkgs)
 do
   if [[ $(command -v "$f") = "" ]]; then install_$f; fi
 done
 
 # check for plugins
 
-for f in $(<plg.pkgs)
+for f in $(<$dots/configs/plg.pkgs)
 do
   if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
 done
@@ -136,43 +143,67 @@ done
 
 if [[ ($distro = *'arch'*) ]]
 then
-  for f in $(<aur.pkgs)
+  for f in $(<$dots/configs/aur.pkgs)
   do
     if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
   done
 elif [[ ($distro = *'debian'*) ]]
 then
-  for f in $(<apt.pkgs)
+  for f in $(<$dots/configs/apt-lite.pkgs)
   do
-    if [[ $(apt list -i) != *"$f"* ]]; then missa=($f $missa); fi
+    if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
   done
 fi
 
 # check for cargo packages
 
-for f in $(<cargo.pkgs)
+for f in $(<$dots/configs/cargo.pkgs)
 do
-  if [[ $(<aur.pkgs) != *"$f"* && $(eval $cargo --list) != *"$f"* ]]; then missc=($f $missc); fi
+  if [[ $(<$dots/configs/aur.pkgs) != *"$f"* && $(eval $cargo --list) != *"$f"* && ($distro = arch) ]]
+  then
+    missc=($f $missc)
+  elif [[ $(eval $cargo --list) != *"$f"* ]]
+  then
+    missc=($f $missc)
+  fi
 done
 
 # promt user to restart shell session if needed
 if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 
 # placing dots
+
 function place_dots () {
-  print '\nSetting up directories'
-  if $([ ! -d '$HOME/.aliases' ]); then mkdir $HOME/.aliases; fi
-  if $([ ! -d '$HOME/.config' ]); then mkdir $HOME/.config; fi
-  if $([ ! -d '$HOME/.local' ]); then mkdir $HOME/.local; fi
-  if $([ ! -d '$HOME/.oh-my-zsh' ]); then mkdir $HOME/.oh-my-zsh; fi
-  if $([ ! -d '$HOME/.themes' ]); then mkdir $HOME/.themes; fi
-  print '\nPlacing dotfiles'
-  rsync -crv $dots/aliases/. $HOME/.aliases
-  rsync -crv $dots/config/. $HOME/.config
-  rsync -crv $dots/local/. $HOME/.local
-  rsync -crv $dots/oh-my-zsh/. $HOME/.oh-my-zsh
-  rsync -crv $dots/themes/. $HOME/.themes
-  rsync -crv $dots/bin/. /usr/local/bin
+  print '\n Setting up directories and placing files'
+  if [[ (full) ]]
+  then
+    for f in $(<$dots/configs/full.dir)
+    do
+      if $([ ! -d '$HOME/.$f' ]); then mkdir $HOME/.$f; fi
+      rsync -crv $dots/dirs/$f/. $HOME/.$f
+    done
+  else
+    if $([ ! -d '$HOME/config' ]); then mkdir $HOME/.config; fi
+    for f in $(<$dots/configs/lite.dir)
+    do
+      if $([ ! -d '$HOME/.$f' ]); then mkdir $HOME/.$f; fi
+      rsync -crv $dots/dirs/$f/. $HOME/.$f
+    done
+  fi
+
+  #print '\nSetting up directories'
+  #if $([ ! -d '$HOME/.aliases' ]); then mkdir $HOME/.aliases; fi
+  #if $([ ! -d '$HOME/.config' ]); then mkdir $HOME/.config; fi
+  #if $([ ! -d '$HOME/.local' ]); then mkdir $HOME/.local; fi
+  #if $([ ! -d '$HOME/.oh-my-zsh' ]); then mkdir $HOME/.oh-my-zsh; fi
+  #if $([ ! -d '$HOME/.themes' ]); then mkdir $HOME/.themes; fi
+  #print '\nPlacing dotfiles'
+  #rsync -crv $dots/aliases/. $HOME/.aliases
+  #rsync -crv $dots/config/. $HOME/.config
+  #rsync -crv $dots/local/. $HOME/.local
+  #rsync -crv $dots/oh-my-zsh/. $HOME/.oh-my-zsh
+  #rsync -crv $dots/themes/. $HOME/.themes
+  #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
   if $([ ! -d '~/.zshenv' ]); then ln -s '~/.config/zsh/.zshenv' '~/.zshenv'; fi
   print 'All done, quitting installer'
@@ -184,6 +215,7 @@ function install_packages () {
   print '\nInstalling all required packages'
   if [[ ($missa != '') ]]
   then
+    if [[ ($missa = *"tailscale"*) ]]; then curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && sudo apt-get update; fi
     eval $pkgman $missa
     if [[ ($missa = *"tailscale"*) ]]; then sudo systemctl enable --now tailscaled; fi
     if [[ ($missa = *"tealdeer"*) ]]; then cp completion/zsh_tealdeer /usr/share/zsh/site-functions/_tldr; fi
@@ -228,7 +260,7 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages and/or plugins are missing:' $missa $missp
+  print 'The following packages and/or plugins are missing:' $missa $missc $missp
   print "ZSH will complain if you are missing plugins don't blame me!"
   print 'Do you want me to install them for you? (Y/n)'
   read -sq ins
@@ -240,7 +272,7 @@ function packages () {
   fi
 }
 
-if [[ ($missa = '' && $missp = '') ]]
+if [[ ($missa = '' && $missp = '' && $missc = '') ]]
 then
   dots
 else
