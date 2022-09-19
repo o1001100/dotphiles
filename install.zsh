@@ -205,6 +205,7 @@ function place_dots () {
   #rsync -crv $dots/themes/. $HOME/.themes
   #rsync -crv $dots/bin/. /usr/local/bin
   print '\nSymlinking ZSH config'
+  if $([ -d "$HOME/.zshenv" ]); then rm "$HOME/.zshenv"; fi
   if $([ ! -d "$HOME/.zshenv" ]); then ln -s "$HOME/.config/zsh/.zshenv" "$HOME/.zshenv"; fi
   print 'All done, quitting installer'
   exit 0
