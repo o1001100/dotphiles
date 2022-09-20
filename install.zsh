@@ -1,5 +1,29 @@
 #!/bin/zsh
 
+function help () {
+  helptext="Usage: ./install.zsh [FLAG] [OPTION]
+Install files and programs configured in the config directory.
+
+With no FLAG(s), will try to detect distro and to install if distro is supported.
+
+  -f, --flags <distro>    skips distro checks and installs assuming user provided distro
+  -a, --arch              attempts to install assuming distro is Arch Linux
+  -d, --debian            attempts to install assuming distro is Debian GNU/Linux
+  -h, --help              shows this help
+  
+Examples:
+  ./install.zsh -f debain
+  ./install.zsh --arch
+
+Written and provided by 01001100: <https://github.com/winkwonkbitch>"
+  print "$helptext"
+}
+
+function badopt () {
+  print "install.zsh: invalid option -- '$1'
+Try './install.zsh --help' for more information."
+}
+
 ######################################################################
 
 ###                      Installer functions                       ###
@@ -136,124 +160,127 @@ function install_packages () {
 
 ######################################################################
 
-# checking user
-if [[ $(whoami) = 'root' ]]; then print "Don't run as root!" && exit 1; else; fi
-
-# checking distro
-if [[ (-f /etc/os-release) ]]
-then
-  . /etc/os-release
-  local distro=$ID
-  if [[ ($distro != 'debian' || 'arch') ]]
+function initial_setup () {
+  # checking user
+  if [[ ($(whoami) = 'root') && ($force != true) ]]; then print "Don't run as root!" && exit 1; else; fi
+  
+  # checking distro
+  if [[ (-f /etc/os-release) ]]
   then
-    print 'This installer currently only supports Debian Linux and Arch Linux'
-    print "Distro detected: $PRETTY_NAME"
-    print 'The script will now exit, please try again on a supported distro or install manually'
+    . /etc/os-release
+    if [[ ($force != true) ]]; then distro='kali'; fi
+    print "running on $distro"
+    if [[ ($distro != 'arch') && ($distro != 'debian') ]]
+    then
+      print 'This installer currently only supports Debian Linux and Arch Linux'
+      print "Distro detected: $PRETTY_NAME"
+      print 'The script will now exit, please try again on a supported distro or install manually'
+      exit 1
+    elif [[ ($distro = *'debian'*) && ($PRETTY_NAME != *'sid'*) ]]
+    then
+      print 'This script currently only supports Debian Sid (unstable)'
+      print "Version detected: $PRETTY_NAME"
+      print 'The script will now exit, please try again on a supported version or install manually'
+      exit 1
+    fi
+  else
+    print 'Unknown/unsupported distro, exiting'
     exit 1
-  elif [[ ($distro = *'debian'*) && ($PRETTY_NAME != *'sid'*) ]]
-  then
-    print 'This script currently only supports Debian Sid (unstable)'
-    print "Version detected: $PRETTY_NAME"
-    print 'The script will now exit, please try again on a supported version or install manually'
   fi
-else
-  print 'Unknown/unsupported distro, exiting'
-  exit 1
-fi
+  
+  # setting variables
+  missa=('')
+  missc=('')
+  missp=('')
+  rsh=(false)
+  dots=$(pwd)
+  cargo=('cargo install')
+  full=(false)
+  if [[ ($distro = debian) ]]; then pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then pkgman='paru -S --noconfirm --needed'; fi
+}
 
-# setting variables
-local missa=('')
-local missc=('')
-local missp=('')
-local rsh=(false)
-local dots=$(pwd)
-local cargo=('cargo install')
-local full=(false)
-if [[ ($distro = debian) ]]; then local pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then local pkgman='paru -S --noconfirm --needed'; fi
-
-# start by asking whether installation should be full or lite
-
-print "Install extra (gui) components? (Y/n)"
-read -sq place
-if [[ ($place = 'y') ]]; then full=true; else full=false; fi
-
-# check for installer dependencies
-
-for f in $(<$dots/configs/dep.pkgs)
-do
-  if [[ $(command -v "$f") = "" ]]; then install_$f; fi
-done
-
-# check for plugins
-
-for f in $(<$dots/configs/plg.pkgs)
-do
-  if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
-done
-
-# check for packages in distro package manager
-
-if [[ ($distro = *'arch'*) && ($full = true) ]]
-then
-  for f in $(<$dots/configs/aur.pkgs)
+function package_setup () {
+  # check for installer dependencies
+  for f in $(<$dots/configs/dep.pkgs)
   do
-    if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+    if [[ $(command -v "$f") = "" ]]; then install_$f; fi
   done
-elif [[ ($distro = *'arch'*) && ($full = false) ]]
-then
-  for f in $(<$dots/configs/aur-lite.pkgs)
+  
+  # check for plugins
+  for f in $(<$dots/configs/plg.pkgs)
   do
-    if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+    if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
   done
-elif [[ ($distro = *'debian'*) && ($full = true) ]]
-then
-  for f in $(<$dots/configs/apt.pkgs)
-  do
-    if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
-  done
-elif [[ ($distro = *'debian'*) && ($full = false) ]]
-then
-  for f in $(<$dots/configs/apt-lite.pkgs)
-  do
-    if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
-  done
-fi
-
-# check for cargo packages
-
-if [[ ($full = true) ]]
-then
-  for f in $(<$dots/configs/cargo.pkgs)
-  do
-    if [[ ($(<$dots/configs/aur.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
-    then
-      missc=($f $missc)
-    elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
-    then
-      missc=($f $missc)
-    fi
-  done
-else
-  for f in $(<$dots/configs/cargo-lite.pkgs)
-  do
-    if [[ ($(<$dots/configs/aur-lite.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
-    then
-      missc=($f $missc)
-    elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
-    then
-      missc=($f $missc)
-    fi
-  done
-fi
-
-# promt user to restart shell session if needed
-if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
+  
+  # check for packages in distro package manager
+  if [[ ($distro = *'arch'*) && ($full = true) ]]
+  then
+    for f in $(<$dots/configs/aur.pkgs)
+    do
+      if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+    done
+  elif [[ ($distro = *'arch'*) && ($full = false) ]]
+  then
+    for f in $(<$dots/configs/aur-lite.pkgs)
+    do
+      if [[ $(paru -Q) != *"$f"* ]]; then missa=($f $missa); fi
+    done
+  elif [[ ($distro = *'debian'*) && ($full = true) ]]
+  then
+    for f in $(<$dots/configs/apt.pkgs)
+    do
+      if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
+    done
+  elif [[ ($distro = *'debian'*) && ($full = false) ]]
+  then
+    for f in $(<$dots/configs/apt-lite.pkgs)
+    do
+      if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
+    done
+  fi
+  
+  # check for cargo packages
+  if [[ ($full = true) ]]
+  then
+    for f in $(<$dots/configs/cargo.pkgs)
+    do
+      if [[ ($(<$dots/configs/aur.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
+      then
+        missc=($f $missc)
+      elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
+      then
+        missc=($f $missc)
+      fi
+    done
+  else
+    for f in $(<$dots/configs/cargo-lite.pkgs)
+    do
+      if [[ ($(<$dots/configs/aur-lite.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
+      then
+        missc=($f $missc)
+      elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
+      then
+        missc=($f $missc)
+      fi
+    done
+  fi
+  
+  # promt user to restart shell session if needed
+  if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
+}
 
 ######################################################################
 
 ###                        User preferences                        ###
 
 ######################################################################
+
+# choose between full and lite installation
+function lite () {
+  print "Install extra (gui) components? (Y/n)"
+  read -sq place
+  if [[ ($place = 'y') ]]; then full=true; else full=false; fi
+}
 
 # promt to place dotfiles
 function dots () {
@@ -287,11 +314,31 @@ function packages () {
 
 ######################################################################
 
-###                   Begin proper installations                   ###
+###                             Begin                              ###
 
 ######################################################################
 
-# decide how to start
+# handles flags passed by the user
+#while getopts f:h flag
+#do
+#  case "${flag}" in
+#    f) distro=${OPTARG} && force=true;;
+#    h) help;;
+#  esac
+#done
+
+case "$1" in
+  -f | --force) distro="$2" && force=true;;
+  -d | --debian) distro='debian' && force=true;;
+  -a | --arch) distro='arch' && force=true;;
+  -h | --help) help && exit 0;;
+  -* | --*) print "install.zsh: invalid option -- '$1'
+Try './install.zsh --help' for more information." && exit 0;;
+esac
+
+initial_setup
+lite
+package_setup
 if [[ ($missa = '' && $missp = '' && $missc = '') ]]
 then
   dots
