@@ -1,0 +1,16 @@
+# cd
+alias cdls='cd "$@" && ls'
+alias cdla='cd "$@" && la'
+
+# fuck
+alias fuck='sudo $(fc -ln -1)'
+
+# ls
+alias ls='exa'
+alias la='exa -la --icons'
+
+# shitfuck
+alias shitfuck='export GPG_TTY=$(tty)'
+
+# wttr
+alias wttr='curl "wttr.in/?0F"'

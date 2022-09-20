@@ -47,21 +47,21 @@ function install_paru () {
   fi
 }
 
-function install_omz () {
-  if $([ -d "$HOME/.oh-my-zsh" ]); then return; fi
-  print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Oh My Zsh'
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
-    exit 0
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
+#function install_omz () {
+#  if $([ -d "$HOME/.oh-my-zsh" ]); then return; fi
+#  print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+#  read -sq place
+#  if [[ ($place = 'y') ]]
+#  then
+#    print 'Okay, installing Oh My Zsh'
+#    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
+#    exit 0
+#  else
+#    print 'Okay buddy'
+#    exit 0
+#  fi
+#}
 
 # installing Powerlevel10k
 function install_p10k () {
@@ -136,14 +136,14 @@ function install_packages () {
   then
     eval $cargo $missc
   fi
-  if [[ ($missp != '') ]]
-  then
-    for f in $missp
-    do
-      git clone https://github.com/zsh-users/$f ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/$f
-    done
-    print '\nYou will need to restart your current shell to make new plugins availiable\n'
-  fi
+  #if [[ ($missp != '') ]]
+  #then
+  #  for f in $missp
+  #  do
+  #    rsync -crvl $dots/dirs/config/zsh/plugins/$f $ZDOTDIR/plugins/$f
+  #  done
+  #  print '\nYou will need to restart your current shell to make new plugins availiable\n'
+  #fi
   if [[ ($place = 'y') ]]
   then
     print 'All missing packages have been installed, continuing'
@@ -207,10 +207,10 @@ function package_setup () {
   done
   
   # check for plugins
-  for f in $(<$dots/configs/plg.pkgs)
-  do
-    if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
-  done
+  #for f in $(<$dots/configs/plg.pkgs)
+  #do
+  #  if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
+  #done
   
   # check for packages in distro package manager
   if [[ ($distro = *'arch'*) && ($full = true) ]]

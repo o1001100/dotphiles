@@ -1,0 +1,326 @@
+: 1663573950:0;pipestatus
+: 1663573976:0;systemctl --user status pipewire
+: 1663574220:0;fc-list
+: 1663574236:0;fc-list | grep product
+: 1663574241:0;fc-list | grep Product
+: 1663574248:0;fc-list | grep Open
+: 1663575814:0;nano configs/cargo.pkgs
+: 1663575900:0;mc
+: 1663576316:0;rm -r ~/.themes/Catppuccin-Mocha
+: 1663580427:0;lsb_release -a
+: 1663580518:0;lsb_release -h
+: 1663580660:0;echo $DISTRO
+: 1663580678:0;echo $distro
+: 1663580696:0;echo $NAME
+: 1663580734:0;hostnamectl
+: 1663580789:0;cat /etc/issue
+: 1663580807:0;cat $PRETTY_NAME
+: 1663580828:0;echo $_VERSION
+: 1663582612:0;cat /etc/os-release
+: 1663583504:0;fg
+: 1663583702:0;nmcli connection down Fenner && nmcli connection up Fenner
+: 1663583722:0;nmcli connection up Fenner
+: 1663583829:0;nmcli connection add -h
+: 1663583884:0;nmcli connection add Fenner
+: 1663583905:0;nmcli connection add ssid 'Fenner'
+: 1663583910:0;nmcli connection add ssid='Fenner'
+: 1663583946:0;nmcli device wifi connect Fenner password loudcow9
+: 1663584027:0;sudo nmcli device wifi connect Fenner --ask
+: 1663584313:0;sudo reboot now
+: 1663584449:0;nmcli device wifi connect Friendly-Neighborhood-SpiderLAN
+: 1663584777:0;nmtui
+: 1663585122:0;nmcli connection up Friendly-Neighbourhood-SpiderLAN
+: 1663585252:0;nmcli connection delete Fenner
+: 1663585272:0;sudo systemctl restart NetworkManager
+: 1663585301:0;nmcli connection up Fenner --ask
+: 1663585317:0;nmcli device wifi add Fenner --ask
+: 1663585326:0;nmcli device wifi Fenner --ask
+: 1663585331:0;nmcli device wifi ssid Fenner --ask
+: 1663585343:0;nmcli device wifi connect Fenner --ask
+: 1663585421:0;ip a
+: 1663591246:0;nano ~/.xinitrc
+: 1663591447:0;nano ~/.config/sxhkd/sxhkdrc
+: 1663591545:0;bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+: 1663591667:0;nano .xinitrc
+: 1663592042:0;nano /usr/share/doc/bspwm/examples/bspwmrc
+: 1663592126:0;nano ~/.config/bspwm/bspwmrc
+: 1663592153:0;cp ~/.config/bspwm/bspwmrc dotphiles/dirs/config/bspwm
+: 1663593166:0;cd dot
+: 1663593193:0;nano install.zsh
+: 1663595037:0;. /etc/os-release
+: 1663595044:0;echo $PRETTY_NAME
+: 1663595051:0;echo $ID
+: 1663596314:0;nano configs/plg.pkgs
+: 1663596323:0;nano configs/dep.pkgs
+: 1663597717:0;chmod +x ass.zsh
+: 1663598125:0;. assistant
+: 1663598129:0;. ass.zsh
+: 1663599002:0;bash ass.zsh
+: 1663599727:0;./ass
+: 1663600584:0;if [[ (true || true) ]]; then echo nice; fi
+: 1663600595:0;if [[ (true || false) ]]; then echo nice; fi
+: 1663600601:0;if [[ (false || false) ]]; then echo nice; fi
+: 1663600622:0;if [[ ([false] || [false]) ]]; then echo nice; fi
+: 1663600656:0;if [[ (false = false) ]]; then echo nice; fi
+: 1663600662:0;if [[ (false != false) ]]; then echo nice; fi
+: 1663600671:0;if [[ (false != true) ]]; then echo nice; fi
+: 1663600684:0;if [[ (false != true || true != false) ]]; then echo nice; fi
+: 1663600700:0;if [[ (false != false || true != true) ]]; then echo nice; fi
+: 1663600720:0;if [[ (false != false || true != true) ]]; then echo nice; else echo better; fi
+: 1663600728:0;if [[ (false != false || true != false) ]]; then echo nice; else echo better; fi
+: 1663600789:0;if [[ (false != false) ]] || [[ (true != false) ]]; then echo nice; else echo better; fi
+: 1663637968:0;pidof barrier
+: 1663637973:0;pkill barrier
+: 1663639036:0;./ass.zsh
+: 1663639047:0;./ass.zsh -f yeah
+: 1663639088:0;nano ass.zsh
+: 1663639103:0;./ass.zsh 
+: 1663639105:0;./ass.zsh -f
+: 1663639141:0;rm ass.zsh
+: 1663639540:0;./install.zsh -f
+: 1663639954:0;./install.zsh -f debian
+: 1663639964:0;./install.zsh -f arch
+: 1663640952:0;ls dotphiles/dirs/config/zsh
+: 1663640970:0;cd dotphiles/dirs/config/zsh
+: 1663641085:0;if [[ (cpm -s "<$.zshrc" "<$zshrc") ]]; then echo nice; fi
+: 1663641097:0;if [[ (cmp -s "<$.zshrc" "<$zshrc") ]]; then echo nice; fi
+: 1663641114:0;if cmp -s "<$.zshrc" "<$zshrc"; then echo nice; fi
+: 1663641119:0;cmp -h
+: 1663641123:0;cmp --help
+: 1663641128:0;tldr cmp
+: 1663641152:0;tldr --update
+: 1663641162:0;cmp .zshrc zshrc
+: 1663641239:0;rm zshrc
+: 1663641252:0;rm ~/.config/zsh/zshrc
+: 1663641275:0;rm ~/.zshrc
+: 1663641282:0;rm ~/.steampath
+: 1663641359:0;cd dotphies
+: 1663641377:0;rm -r dotfiles debian
+: 1663641405:0;rm private.key
+: 1663641433:0;git clone https://github.com/winkwonkbitch/twbasic.git
+: 1663641439:0;cd twbasic
+: 1663641708:0;git pull
+: 1663641713:0;make
+: 1663641720:0;make install
+: 1663641725:0;sudo make install
+: 1663641730:0;twbasic
+: 1663643135:0;apt -h
+: 1663643424:0;chsh -h
+: 1663643721:0;cat --help
+: 1663644082:0;cat -h
+: 1663644813:0;./install.zsh
+: 1663644933:0;./install.zsh --help
+: 1663644941:0;./install.zsh --debian
+: 1663644948:0;./install.zsh --arch
+: 1663644969:0;./install.zsh --force arch
+: 1663645414:0;./install.zsh --poop
+: 1663645766:0;./install.zsh -l
+: 1663647386:0;./install.zsh -h
+: 1663647405:0;paru -h
+: 1663647421:0;paru --poop
+: 1663647436:0;paru
+: 1663654328:0;zsh -h
+: 1663654340:0;zsh --version
+: 1663654448:0;echo $XDG_CONFIG_HOME
+: 1663654562:0;uninstall_oh_my_zsh
+: 1663654591:0;ls .config/zsh
+: 1663654597:0;la .config/zsh
+: 1663654639:0;git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zprezto"\
+
+: 1663654824:0;mv .zshenv .homenv
+: 1663654867:0;ln -s .homenv ~/.zshenv
+: 1663654894:0;ln -s ~/.config/zsh/.homenv ~/.zshenv
+: 1663654897:0;la ~
+: 1663654937:0;ls .zprezto
+: 1663654941:0;ls .zprezto/runcoms
+: 1663655600:0;nano ~/.zshenv
+: 1663655636:0;nano .zshrc
+: 1663655667:0;cp .zprezto/runcoms/zlogin ./
+: 1663655739:0;mv zlogin .zlogin
+: 1663655767:0;cp .zprezto/runcoms/zlogout ./.zlogout
+: 1663655789:0;mv .homenv zshenv
+: 1663655816:0;rm ~/.zshenv
+: 1663655817:0;ln -s ~/.config/zsh/zshenv ~/.zshenv
+: 1663655851:0;cp .zprezto/runcoms/zpreztorc ./.zpreztorc
+: 1663655989:0;pwd
+: 1663656221:0;nano .zshenv
+: 1663656525:0;cp ~/dotphiles/dirs/config/zsh/p10k.zsh ./
+: 1663657420:0;aru -S keynav-git
+: 1663657433:0;paru -S
+: 1663657654:0;paru -S fortune
+: 1663657700:0;paru -S fortune-mod
+: 1663657711:0;zsh
+: 1663657719:0;fortune
+: 1663658444:0;zplug
+: 1663658947:0;git statis
+: 1663658960:0;nanu
+: 1663658963:0;git status
+: 1663659046:0;bash onefetch
+: 1663659050:0;bash
+: 1663659072:0;cd modules
+: 1663659084:0;cd directory
+: 1663659089:0;onefetch
+: 1663659098:0;nano README.md
+: 1663659147:0;dir
+: 1663659155:0;dirs
+: 1663659166:0;configs
+: 1663659805:0;cd ...
+: 1663659878:0;git clone --recurse-submodules https://github.com/belak/prezto-contrib .contrib
+: 1663660149:0;paru -S fzy
+: 1663660275:0;cd ../../../../../..
+: 1663660289:0;cd ../../../../..
+: 1663660297:0;cd ../..
+: 1663660303:0;cd go
+: 1663660435:0;zstyle ':prezto:module:enhancd' filter 'fzf'
+: 1663660845:0;cd .contrib
+: 1663660859:0;mv .contrib .zprezto
+: 1663660868:0;cd .zprezto
+: 1663660892:0;mv .contrib contrib
+: 1663661673:0;mv .zprezto/contrib ./
+: 1663661695:0;mv contrib .zprezto-contrib
+: 1663661709:0;cd .
+: 1663661715:0;cd l
+: 1663662175:0;mkdir plugins
+: 1663662251:0;git clone --recursive https://github.com/gko/ssh-connect.git
+: 1663662262:0;cd ../../..
+: 1663662397:0;cd $ZDOTDIR/plugins
+: 1663662408:0;ls listbox
+: 1663662442:0;mv ssh-connect.sh ssh-connect.zsh
+: 1663662476:0;mv ssh-connect.zsh init.zsh
+: 1663662564:0;bat .config/zsh/history
+: 1663664442:0;
+: 1663664442:0;ssh pi@100.83.210.108
+: 1663662768:0;nano arD
+: 1663662779:0;nano arch
+: 1663662786:0;nano echo
+: 1663662791:0;rm echo
+: 1663662799:0;nano ssh
+: 1663662802:0;rm ssh
+: 1663662836:0;cp arch crct
+: 1663662839:0;rm crct
+: 1663662940:0;nano .config/zsh/history
+: 1663663253:0;cp init.zsh ../
+: 1663663255:0;ls ../
+: 1663663271:0;rm -r ssh-connect
+: 1663663282:0;sudo rm -r ssh-connect
+: 1663663304:0;git clone https://github.com/winkwonkbitch/ssh-connect
+: 1663663313:0;cp init.zsh ssh-connect
+: 1663663323:0;rm ssh-connect.sh
+: 1663663601:0;git submodule update --init --recursive
+: 1663663619:0;ls .aliases
+: 1663663854:0;ls -h
+: 1663663857:0;ls -v
+: 1663663860:0;ls --version
+: 1663663881:0;exa --version
+: 1663664001:0;fuck
+: 1663664102:0;nano .aliases/ls.zsh
+: 1663664112:0;for f in $HOME/.aliases/*.zsh; do zsh "$f"; done
+: 1663664193:0;nano .config/.aliases
+: 1663664199:0;cd .aliases
+: 1663664204:0;nano cd.zsh
+: 1663664229:0;nano fuck.zsh
+: 1663664246:0;nano ls.zsh
+: 1663664270:0;nano shitfuck.zsh
+: 1663664287:0;nano wttr.zsh
+: 1663664321:0;cd ..
+: 1663664324:0;rm -r .aliases
+: 1663664429:0;mv .config/.aliases $ZDOTDIR
+: 1663664433:0;ls $ZDOTDIR
+: 1663664438:0;la $ZDOTDIR
+: 1663664459:0;nano .config/zsh/.aliases
+: 1663664473:0;wttr
+: 1663664567:0;neofetch
+: 1663664745:0;git commit -m 'works for now, about to migrate to prezto so this will likely be temporary'
+: 1663666533:0;cd plugins
+: 1663666536:0;cd ssh-connect
+: 1663666595:0;mv init.zsh ssh-connect.plugin.zsh
+: 1663666609:0;ssh-connect
+: 1663669331:0;ping google.com
+: 1663669340:0;sudo ip link set wlan0 down && sudo ip link set wlan0 up
+: 1663670488:0;gitui
+: 1663670497:0;git add .
+: 1663670531:0;git commit -m 'rename main file, fix main file, and update readme'
+: 1663670543:0;git push
+: 1663670546:0;cat ~/.gitkey
+: 1663670559:0;cd
+: 1663670564:0;cd dotphiles
+: 1663670566:0;clear
+: 1663670577:0;cd configs
+: 1663670577:0;ls
+: 1663670588:0;nano dep.pkgs
+: 1663670646:0;zprezto-update
+: 1663670699:0;nano full.dir
+: 1663670713:0;nano lite.dir
+: 1663670758:0;cd .config/zsh
+: 1663670768:0;cd ../dirs/config
+: 1663670770:0;cd zsh
+: 1663670771:0;la
+: 1663670776:0;exit
+: 1663670786:0;cd zsh
+: 1663670793:0;clear
+: 1663670828:0;la
+: 1663671663:0;cd plugins
+: 1663671672:0;git clone https://github.com/le0me55i/zsh-systemd
+: 1663671694:0;git config --global alias.cloner = 'clone --recursive'
+: 1663671786:0;sc-list
+: 1663671975:0;cd plugins
+: 1663671978:0;ls
+: 1663672001:0;cmp init.zsh ssh-connect/ssh-connect.plugin.zsh
+: 1663672014:0;rm init.zsh
+: 1663672019:0;rm -r zsh-systemd
+: 1663672040:0;git clone https://github.com/arifer612/zsh-systemd systemd
+: 1663672046:0;ls systemd
+: 1663672069:0;sc-list-dependencies
+: 1663672092:0;systemctl list-dependencies
+: 1663672094:0;clear
+: 1663672362:0;cd plugins
+: 1663672367:0;git clone https://github.com/kjhaber/tm.zsh 
+: 1663672492:0;tm
+: 1663672514:0;tm 1
+: 1663672602:0;zsh .config/zsh/plugins/tm.zsh
+: 1663672618:0;ls .config/zsh/plugins
+: 1663672633:0;ls .config/zsh/plugins/tm.zsh
+: 1663672649:0;zsh .config/zsh/plugins/tm.zsh/tm.zsh
+: 1663672796:0;which compdef
+: 1663672879:0;nano .config/zsh/plugins/tm.zsh/tm.zsh
+: 1663672954:0;tm
+: 1663672973:0;cd plugins
+: 1663672977:0;ls
+: 1663672982:0;mv tm.zsh tm
+: 1663672984:0;clear
+: 1663672985:0;ls
+: 1663673073:0;cd plug
+: 1663673075:0;cd plugins
+: 1663673079:0;ls
+: 1663673084:0;sudo rm tm
+: 1663673092:0;sudo rm -r tm
+: 1663673093:0;\clear
+: 1663673094:0;ls
+: 1663673469:0;cd ..
+: 1663673470:0;ls
+: 1663673472:0;clear
+: 1663673473:0;la
+: 1663673643:0;mv p10k.zsh .p10k.zsh
+: 1663673743:0;echo $LS_COLORS
+: 1663673874:0;neofetch\\
+
+: 1663673878:0;la
+: 1663674022:0;nano ~/.config/kitty/mocha.conf
+: 0:1663674063;
+: 1663674131:0;la
+: 1663674142:0;cd zsh
+: 1663674147:0;la
+: 1663674759:0;echo $EXA_COLORS
+: 1663674772:0;echo $LS_COLORS
+: 1663675257:0;sudo ip link set wlan0 down && sudo ip link set wlan0 up
+: 1663675279:0;nano ~/.config/kitty/mocha.conf
+: 1663675304:0;sudo ip link set wlan0 down && sudo ip link set wlan0 up
+: 1663675335:0;la
+: 1663675339:0;clear
+: 1663675341:0;cd zsh
+: 1663675347:0;gitui
+: 1663675365:0;clear
+: 1663675366:0;la
+: 1663675369:0;clear
+: 1663675371:0;la
+: 1663675460:0;cp * ~/dotphiles/dirs/config/zsh
