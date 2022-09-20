@@ -10,9 +10,9 @@ With no FLAG(s), will try to detect distro and to install if distro is supported
   -a, --arch              attempts to install assuming distro is Arch Linux
   -d, --debian            attempts to install assuming distro is Debian GNU/Linux
   -h, --help              shows this help
-  
+
 Examples:
-  ./install.zsh -f debain
+  ./install.zsh -f debian
   ./install.zsh --arch
 
 Written and provided by 01001100: <https://github.com/winkwonkbitch>"
@@ -87,6 +87,13 @@ function install_cargo () {
   if [[ ($place = 'y') ]]
   then
     print 'Okay, installing Rust'
+    if [[ ($distro = 'arch') ]]
+    then
+      eval $pkgman base-devel
+    elif [[ ($distro = 'debian') ]]
+    then
+      eval $pkgman build-essential
+    fi
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     print '\nFinished, continuing installer\n'
   else
@@ -167,7 +174,7 @@ function initial_setup () {
   if [[ (-f /etc/os-release) ]]
   then
     . /etc/os-release
-    if [[ ($force != true) ]]; then distro='kali'; fi
+    if [[ ($force != true) ]]; then distro=$ID; fi
     print "running on $distro"
     if [[ ($distro != 'arch') && ($distro != 'debian') ]]
     then
