@@ -39,3 +39,4 @@ unsetopt autocd
 # enhancd config
 export ENHANCD_DISABLE_HOME=1
 export ENHANCD_DOT_ARG='.'
+export ENHANCD_DIR="$XDG_CONFIG_HOME"
