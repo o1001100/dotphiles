@@ -64,21 +64,21 @@ function install_paru () {
 #}
 
 # installing Powerlevel10k
-function install_p10k () {
-  if $([ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]); then return; fi
-  print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-  read -sq place
-  if [[ ($place = 'y') ]]
-  then
-    print 'Okay, installing Powerlevel10k'
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    print '\nFinished, continuing installer\n'
-    rsh=(true)
-  else
-    print 'Okay buddy'
-    exit 0
-  fi
-}
+#function install_p10k () {
+#  if $([ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]); then return; fi
+#  print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
+#  read -sq place
+#  if [[ ($place = 'y') ]]
+#  then
+#    print 'Okay, installing Powerlevel10k'
+#    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+#    print '\nFinished, continuing installer\n'
+#    rsh=(true)
+#  else
+#    print 'Okay buddy'
+#    exit 0
+#  fi
+#}
 
 # installing Rust and Cargo
 function install_cargo () {
@@ -89,7 +89,6 @@ function install_cargo () {
     print 'Okay, installing Rust'
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     print '\nFinished, continuing installer\n'
-    rsh=(true)
   else
     print 'Okay buddy'
     exit 0
