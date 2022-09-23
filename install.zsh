@@ -9,6 +9,7 @@ With no FLAG(s), will try to detect distro and to install if distro is supported
   -f, --flags <distro>    skips distro checks and installs assuming user provided distro
   -a, --arch              attempts to install assuming distro is Arch Linux
   -d, --debian            attempts to install assuming distro is Debian GNU/Linux
+  -t, --termux            attempts to install assuming distro is Android (through Termux)
   -h, --help              shows this help
 
 Examples:
@@ -47,44 +48,11 @@ function install_paru () {
   fi
 }
 
-#function install_omz () {
-#  if $([ -d "$HOME/.oh-my-zsh" ]); then return; fi
-#  print "Oh My Zsh doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-#  read -sq place
-#  if [[ ($place = 'y') ]]
-#  then
-#    print 'Okay, installing Oh My Zsh'
-#    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#    print '\nFinished! You now need to log out of your current shell session and log back in before you can run this script again'
-#    exit 0
-#  else
-#    print 'Okay buddy'
-#    exit 0
-#  fi
-#}
-
-# installing Powerlevel10k
-#function install_p10k () {
-#  if $([ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]); then return; fi
-#  print "Powerlevel10k doesn't appear to be installed, would you like me to install it for you? (Y/n)"
-#  read -sq place
-#  if [[ ($place = 'y') ]]
-#  then
-#    print 'Okay, installing Powerlevel10k'
-#    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-#    print '\nFinished, continuing installer\n'
-#    rsh=(true)
-#  else
-#    print 'Okay buddy'
-#    exit 0
-#  fi
-#}
-
 # installing Rust and Cargo
 function install_cargo () {
   print "Rust doesn't appear to be installed, would you like me to install it for you? (Y/n)"
   read -sq place
-  if [[ ($place = 'y') ]]
+  if [[ ($place = 'y') && ($distro != 'termux')  ]]
   then
     print 'Okay, installing Rust'
     if [[ ($distro = 'arch') ]]
@@ -96,6 +64,10 @@ function install_cargo () {
     fi
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     print '\nFinished, continuing installer\n'
+    rsh=true
+  elif [[ ($place = 'y') && ($distro = 'termux') ]]
+  then
+    eval $pkgman build-essential rust
   else
     print 'Okay buddy'
     exit 0
@@ -108,6 +80,14 @@ function place_dots () {
   if [[ ($full = true) ]]
   then
     for f in $(<$dots/configs/full.dir)
+    do
+      if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  elif [[ ($full = false) && ($distro = 'termux') ]]
+  then
+    if $([ ! -d $HOME/.config ]); then mkdir $HOME/.config; fi
+    for f in $(<$dots/configs/tmx.dir)
     do
       if $([ ! -d $HOME/.$f ]); then mkdir $HOME/.$f; fi
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
@@ -142,14 +122,6 @@ function install_packages () {
   then
     eval $cargo $missc
   fi
-  #if [[ ($missp != '') ]]
-  #then
-  #  for f in $missp
-  #  do
-  #    rsync -crvl $dots/dirs/config/zsh/plugins/$f $ZDOTDIR/plugins/$f
-  #  done
-  #  print '\nYou will need to restart your current shell to make new plugins availiable\n'
-  #fi
   if [[ ($place = 'y') ]]
   then
     print 'All missing packages have been installed, continuing'
@@ -169,9 +141,9 @@ function install_packages () {
 function initial_setup () {
   # checking user
   if [[ ($(whoami) = 'root') && ($force != true) ]]; then print "Don't run as root!" && exit 1; else; fi
-  
+
   # checking distro
-  if [[ (-f /etc/os-release) ]]
+  if [[ (-f /etc/os-release) || ($force = true) ]]
   then
     . /etc/os-release
     if [[ ($force != true) ]]; then distro=$ID; fi
@@ -189,20 +161,25 @@ function initial_setup () {
       print 'The script will now exit, please try again on a supported version or install manually'
       exit 1
     fi
+  elif [[ $(command -v termux-reload-settings) ]]
+    then
+    distro='termux'
+    PRETTY_NAME='Android x64 (through Termux)'
+    print "running on $distro"
+    full=false
   else
     print 'Unknown/unsupported distro, exiting'
     exit 1
   fi
-  
+
   # setting variables
   missa=('')
   missc=('')
-  missp=('')
   rsh=(false)
   dots=$(pwd)
   cargo=('cargo install')
   full=(false)
-  if [[ ($distro = debian) ]]; then pkgman='sudo apt-get install -y'; elif [[ ($distro = arch) ]]; then pkgman='paru -S --noconfirm --needed'; fi
+  if [[ ($distro = 'debian') ]]; then pkgman='sudo apt-get install -y'; elif [[ ($distro = 'arch') ]]; then pkgman='paru -S --noconfirm --needed'; elif [[ ($distro = 'termux') ]]; then pkgman='pkg install -y'; fi
 }
 
 function package_setup () {
@@ -211,13 +188,7 @@ function package_setup () {
   do
     if [[ $(command -v "$f") = "" ]]; then install_$f; fi
   done
-  
-  # check for plugins
-  #for f in $(<$dots/configs/plg.pkgs)
-  #do
-  #  if $([ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$f" ]); then missp=($f $missp); fi
-  #done
-  
+
   # check for packages in distro package manager
   if [[ ($distro = *'arch'*) && ($full = true) ]]
   then
@@ -243,8 +214,14 @@ function package_setup () {
     do
       if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
     done
+  elif [[ ($distro = *'termux'*) ]]
+  then
+    for f in $(<$dots/configs/pkg.pkgs)
+    do
+      if [[ $(dpkg --get-selections | grep -v deinstall) != *"$f"* ]]; then missa=($f $missa); fi
+    done
   fi
-  
+
   # check for cargo packages
   if [[ ($full = true) ]]
   then
@@ -258,19 +235,23 @@ function package_setup () {
         missc=($f $missc)
       fi
     done
-  else
+  elif [[ ($full = false) ]]
+  then
     for f in $(<$dots/configs/cargo-lite.pkgs)
     do
       if [[ ($(<$dots/configs/aur-lite.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'arch'*) ]]
       then
         missc=($f $missc)
-      elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) ]]
+      elif [[ ($(<$dots/configs/pkg.pkgs) != *"$f"*) && ($(eval $cargo --list) != *"$f"*) && ($distro = *'termux'*) ]]
+      then
+        missc=($f $missc)
+      elif [[ ($(eval $cargo --list) != *"$f"*) && ($distro != *'arch'*) && ($distro != *'termux'*) ]]
       then
         missc=($f $missc)
       fi
     done
   fi
-  
+
   # promt user to restart shell session if needed
   if [[ ($rsh = true) ]]; then print 'You now need to log out of your current shell session and log back in before you can run this script again'; exit 0; fi
 }
@@ -306,7 +287,7 @@ function dots () {
 
 # promt to install missing packages
 function packages () {
-  print 'The following packages and/or plugins are missing:' $missa $missc $missp
+  print 'The following packages and/or plugins are missing:' $missa $missc
   print "ZSH will complain if you are missing plugins don't blame me!"
   print 'Do you want me to install them for you? (Y/n)'
   read -sq ins
@@ -324,28 +305,21 @@ function packages () {
 
 ######################################################################
 
-# handles flags passed by the user
-#while getopts f:h flag
-#do
-#  case "${flag}" in
-#    f) distro=${OPTARG} && force=true;;
-#    h) help;;
-#  esac
-#done
-
+# handles flags and arguements passed by the user
 case "$1" in
   -f | --force) distro="$2" && force=true;;
   -d | --debian) distro='debian' && force=true;;
   -a | --arch) distro='arch' && force=true;;
+  -t | --termux) distro='termux' && force=true;;
   -h | --help) help && exit 0;;
   -* | --*) print "install.zsh: invalid option -- '$1'
 Try './install.zsh --help' for more information." && exit 0;;
 esac
 
 initial_setup
-lite
+if [[ ($distro != 'termux') ]]; then lite; fi
 package_setup
-if [[ ($missa = '' && $missp = '' && $missc = '') ]]
+if [[ ($missa = ''  && $missc = '') ]]
 then
   dots
 else

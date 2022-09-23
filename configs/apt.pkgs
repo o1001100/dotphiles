@@ -3,7 +3,6 @@ curl
 neovim
 exa
 tmux
-mc
 rsync
 fzf
 cbonsai
@@ -18,3 +17,4 @@ neofetch
 rofi
 sxhkd
 fonts-open-sans
+nala

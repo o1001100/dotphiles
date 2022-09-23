@@ -5,8 +5,10 @@ exa
 tmux 
 rsync 
 fzf 
-cbonsai 
-tailscale 
-btop 
 neofetch 
+bat
+tealdeer
+gitui
+onefetch
+gotop
 nala

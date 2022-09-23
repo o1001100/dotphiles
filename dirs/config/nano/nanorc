@@ -2,7 +2,6 @@ set autoindent
 set boldtext
 set noconvert
 set tabstospaces
-set magic
 set minibar
 set multibuffer
 set zap
