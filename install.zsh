@@ -1,5 +1,47 @@
 #!/bin/zsh
 
+function dotphile-update () {
+  dots=$(pwd)
+  if [[ -z "$DOTS_TYPE" ]]
+  then
+    print "Couldn't find your installation, please check that it has been installed properly and try again"
+    exit 1
+  else
+    print 'Collecting updates'
+  fi
+  cd $dots && git pull --recurse-submodules
+  if [[ ($DOTS_TYPE = 'full') ]]
+  then
+    print "Found install type, updating your installation"
+    for f in $(<$dots/configs/full.dir)
+    do
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  elif [[ ($DOTS_TYPE = 'lite') ]]
+  then
+    print "Found install type, updating your installation"
+    for f in $(<$dots/configs/lite.dir) ]]
+    do
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  elif [[ ($DOTS_TYPE = 'termux') ]]
+  then
+    print "Found install type, updating your installation"
+    for f in $(<$dots/configs/tmx.dir) ]]
+    do
+      rsync -crvl $dots/dirs/$f/. $HOME/.$f
+    done
+  fi
+  if [[ ($full = true) ]]; then type='full'; elif [[ ($distro = 'termux') ]]; then type='termux'; else type='lite'; fi
+  envar="
+# setting variables for installer
+export DOTS_TYPE='$type'
+export DOTS_LOCATION='$dots'"
+  echo $envar >> $HOME/.zshenv
+  print 'Finished with dots, checking for new/updated packages'
+  dewwit
+}
+
 function help () {
   helptext="Usage: ./install.zsh [FLAG] [OPTION]
 Install files and programs configured in the config directory.
@@ -10,11 +52,13 @@ With no FLAG(s), will try to detect distro and to install if distro is supported
   -a, --arch              attempts to install assuming distro is Arch Linux
   -d, --debian            attempts to install assuming distro is Debian GNU/Linux
   -t, --termux            attempts to install assuming distro is Android (through Termux)
+  -u, --update            updates installed submodules (also accessible from the 'dotphile-update' command
   -h, --help              shows this help
 
 Examples:
   ./install.zsh -f debian
   ./install.zsh --arch
+  ./install.zsh --update
 
 Written and provided by 01001100: <https://github.com/winkwonkbitch>"
   print "$helptext"
@@ -104,6 +148,15 @@ function place_dots () {
   print '\nSymlinking ZSH config'
   if $([ -f $HOME/.zshenv ]); then rm -v $HOME/.zshenv; fi
   if $([ ! -f $HOME/.zshenv ]); then ln -sv $HOME/.config/zsh/.zshenv $HOME/.zshenv; fi
+
+  print '\nSetting environmental variables for future installs'
+  if [[ ($full = true) ]]; then type='full'; elif [[ ($distro = 'termux') ]]; then type='termux'; else type='lite'; fi
+  envar="
+# setting variables for installer
+export DOTS_TYPE='$type'
+export DOTS_LOCATION='$dots'"
+  echo $envar >> $HOME/.zshenv
+
   print '\nAll done, quitting installer'
   exit 0
 }
@@ -271,8 +324,13 @@ function lite () {
 
 # promt to place dotfiles
 function dots () {
-  print 'Do you want me to place all the dotfiles for you? (Y/n)'
-  read -sq place
+  if [[ -z "$DOTS_TYPE" ]]
+  then
+    print 'Do you want me to place all the dotfiles for you? (Y/n)'
+    read -sq place
+  else
+    place='n'
+  fi
   if [[ ($ins = 'y') ]]
   then
     install_packages
@@ -280,7 +338,7 @@ function dots () {
   then
     place_dots
   else
-    print 'okay but why did you run the installer then lol'
+    print 'Nothing to do, exiting'
     exit 0
   fi
 }
@@ -305,26 +363,32 @@ function packages () {
 
 ######################################################################
 
+# the main attraction
+function dewwit () {
+  initial_setup
+  if [[ ($distro != 'termux') ]]; then lite; fi
+  package_setup
+  if [[ ($missa = ''  && $missc = '') ]]
+  then
+    dots
+  else
+    packages
+  fi
+}
+
 # handles flags and arguements passed by the user
 case "$1" in
   -f | --force) distro="$2" && force=true;;
   -d | --debian) distro='debian' && force=true;;
   -a | --arch) distro='arch' && force=true;;
   -t | --termux) distro='termux' && force=true;;
+  -u | --update) dotphile-update && exit 0;;
   -h | --help) help && exit 0;;
   -* | --*) print "install.zsh: invalid option -- '$1'
 Try './install.zsh --help' for more information." && exit 0;;
 esac
 
-initial_setup
-if [[ ($distro != 'termux') ]]; then lite; fi
-package_setup
-if [[ ($missa = ''  && $missc = '') ]]
-then
-  dots
-else
-  packages
-fi
+dewwit
 
 ######################################################################
 
