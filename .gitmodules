@@ -1,0 +1,24 @@
+[submodule "dirs/config/zsh/.prezto"]
+	path = dirs/config/zsh/.prezto
+	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "dirs/config/zsh/plugins/contrib"]
+	path = dirs/config/zsh/plugins/contrib
+	url = https://github.com/belak/prezto-contrib
+[submodule "dirs/config/zsh/plugins/custom/ssh-connect"]
+	path = dirs/config/zsh/plugins/custom/ssh-connect
+	url = https://github.com/winkwonkbitch/ssh-connect
+[submodule "dirs/config/zsh/plugins/custom/systemd"]
+	path = dirs/config/zsh/plugins/custom/systemd
+	url = https://github.com/arifer612/zsh-systemd
+[submodule "dirs/config/zsh/plugins/systemd"]
+	path = dirs/config/zsh/plugins/systemd
+	url = https://github.com/arifer612/zsh-systemd
+[submodule "dirs/config/zsh/plugins/ssh-connect"]
+	path = dirs/config/zsh/plugins/ssh-connect
+	url = https://github.com/winkwonkbitch/ssh-connect
+[submodule "dirs/config/zsh/plugins/enhancd"]
+	path = dirs/config/zsh/plugins/enhancd
+	url = https://github.com/b4b4r07/enhancd
+[submodule "dirs/config/zsh/.zprezto"]
+	path = dirs/config/zsh/.zprezto
+	url = https://github.com/sorin-ionescu/prezto.git
