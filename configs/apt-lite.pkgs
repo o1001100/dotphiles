@@ -1,3 +1,4 @@
+pkg-config
 fzy
 curl 
 neovim 
@@ -10,3 +11,6 @@ tailscale
 btop 
 neofetch 
 nala
+libssl-dev
+libssh-dev
+libgit2-dev

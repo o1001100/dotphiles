@@ -1,3 +1,4 @@
+pkg-config
 fzy
 curl 
 neovim 
@@ -12,3 +13,6 @@ gitui
 onefetch
 gotop
 nala
+libssl-dev
+libssh-dev
+libgit2-dev

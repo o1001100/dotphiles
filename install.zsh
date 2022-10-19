@@ -1,13 +1,24 @@
 #!/bin/zsh
 
-function dotphile-update () {
-  dots=$(pwd)
+function title () {
+  echo "     _       _         _     _ _           "
+  echo "    | |     | |       | |   (_) |          "
+  echo "  __| | ___ | |_ _ __ | |__  _| | ___  ___ "
+  echo " / _  |/ _ \| __| '_ \| '_ \| | |/ _ \/ __|"
+  echo "| (_| | (_) | |_| |_) | | | | | |  __/\__ \ "
+  echo " \__,_|\___/ \__| .__/|_| |_|_|_|\___||___/"
+  echo "                 | |                        "
+  echo "                 |_|      Running on: $PRETTY_NAME"
+  echo $title
+}
+
+function dotphile_update () {
   if [[ -z "$DOTS_TYPE" ]]
   then
     print "Couldn't find your installation, please check that it has been installed properly and try again"
     exit 1
   else
-    print 'Collecting updates'
+    print 'Collecting updates\n'
   fi
   cd $dots && git pull --recurse-submodules
   if [[ ($DOTS_TYPE = 'full') ]]
@@ -20,14 +31,14 @@ function dotphile-update () {
   elif [[ ($DOTS_TYPE = 'lite') ]]
   then
     print "Found install type, updating your installation"
-    for f in $(<$dots/configs/lite.dir) ]]
+    for f in $(<$dots/configs/lite.dir)
     do
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
     done
   elif [[ ($DOTS_TYPE = 'termux') ]]
   then
     print "Found install type, updating your installation"
-    for f in $(<$dots/configs/tmx.dir) ]]
+    for f in $(<$dots/configs/tmx.dir)
     do
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
     done
@@ -38,8 +49,8 @@ function dotphile-update () {
 export DOTS_TYPE='$type'
 export DOTS_LOCATION='$dots'"
   echo $envar >> $HOME/.zshenv
-  print 'Finished with dots, checking for new/updated packages'
-  dewwit
+  print '\nFinished with dots, checking for new/updated packages\n'
+  return
 }
 
 function help () {
@@ -179,10 +190,28 @@ function install_packages () {
   then
     print 'All missing packages have been installed, continuing'
     place_dots
-  else
-    print 'Finished, terminating installer'
-    exit 0
   fi
+}
+
+# updating packages
+function pkg_update () {
+  print '\nUpdating all installed packages'
+  if [[ ($distro = 'arch') ]]
+  then
+    print '\nUpdating all packages installed with Paru'
+    paru
+  elif [[ ($distro = 'debian') ]]
+  then
+    print '\nUpdating all packages installed with APT'
+    sudo apt-get update && sudo apt-get full-upgrade
+  elif [[ ($distro = 'termux') ]]
+  then
+    print '\nUpdating all packages installed with PKG'
+    pkg update
+  fi
+  cargo install-update -a
+  print 'Everything should now be up to date, exiting'
+  exit 0
 }
 
 ######################################################################
@@ -200,10 +229,9 @@ function initial_setup () {
   then
     . /etc/os-release
     if [[ ($force != true) ]]; then distro=$ID; fi
-    print "running on $distro"
     if [[ ($distro != 'arch') && ($distro != 'debian') ]]
     then
-      print 'This installer currently only supports Debian Linux and Arch Linux'
+      print 'This installer currently only supports Debian Linux, Arch Linux, and Termux'
       print "Distro detected: $PRETTY_NAME"
       print 'The script will now exit, please try again on a supported distro or install manually'
       exit 1
@@ -218,7 +246,6 @@ function initial_setup () {
     then
     distro='termux'
     PRETTY_NAME='Android x64 (through Termux)'
-    print "running on $distro"
     full=false
   else
     print 'Unknown/unsupported distro, exiting'
@@ -366,13 +393,34 @@ function packages () {
 # the main attraction
 function dewwit () {
   initial_setup
+  title
   if [[ ($distro != 'termux') ]]; then lite; fi
   package_setup
-  if [[ ($missa = ''  && $missc = '') ]]
+  if [[ ($missa = '' && $missc = '') ]]
   then
     dots
   else
     packages
+    print 'Finished, terminating installer'
+    exit 0
+  fi
+}
+
+function dewupdate () {
+  initial_setup
+  title
+  dotphile_update
+  package_setup
+  if [[ ($missa = '' && $missc = '') ]]
+  then
+    print 'No new packages to install, would you like to update all installed packages? (Y/n)'
+    read -sq place
+    if [[ ($place = 'y') ]]; then pkg_update; else print 'Okay, exiting' && exit 0; fi
+  else
+    packages
+    print '\nWould you like to update all installed packages? (Y/n)'
+    read -sq place
+    if [[ ($place = 'y') ]]; then pkg_update; exit 0; else print 'Okay, exiting'; exit 0; fi
   fi
 }
 
@@ -382,7 +430,7 @@ case "$1" in
   -d | --debian) distro='debian' && force=true;;
   -a | --arch) distro='arch' && force=true;;
   -t | --termux) distro='termux' && force=true;;
-  -u | --update) dotphile-update && exit 0;;
+  -u | --update) dewupdate && exit 0;;
   -h | --help) help && exit 0;;
   -* | --*) print "install.zsh: invalid option -- '$1'
 Try './install.zsh --help' for more information." && exit 0;;

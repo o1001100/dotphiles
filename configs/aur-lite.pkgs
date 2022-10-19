@@ -1,3 +1,4 @@
+pkgconfig
 fzy
 tealdeer 
 gitui 
@@ -15,3 +16,6 @@ btop
 gtop
 neofetch
 onefetch
+openssl
+libssh
+libgit2
