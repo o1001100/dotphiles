@@ -110,7 +110,7 @@ function install_cargo () {
   if [[ ($place = 'y') && ($distro != 'termux')  ]]
   then
     print 'Okay, installing Rust'
-    if [[ ($distro = 'arch') ]]
+    if [[ ($distro = 'arch'*) ]]
     then
       eval $pkgman base-devel
     elif [[ ($distro = 'debian') ]]
@@ -196,7 +196,7 @@ function install_packages () {
 # updating packages
 function pkg_update () {
   print '\nUpdating all installed packages'
-  if [[ ($distro = 'arch') ]]
+  if [[ ($distro = 'arch'*) ]]
   then
     print '\nUpdating all packages installed with Paru'
     paru
@@ -229,7 +229,7 @@ function initial_setup () {
   then
     . /etc/os-release
     if [[ ($force != true) ]]; then distro=$ID; fi
-    if [[ ($distro != 'arch') && ($distro != 'debian') ]]
+    if [[ ($distro != 'arch'*) && ($distro != 'debian') ]]
     then
       print 'This installer currently only supports Debian Linux, Arch Linux, and Termux'
       print "Distro detected: $PRETTY_NAME"
@@ -259,7 +259,7 @@ function initial_setup () {
   dots=$(pwd)
   cargo=('cargo install')
   full=(false)
-  if [[ ($distro = 'debian') ]]; then pkgman='sudo apt-get install -y'; elif [[ ($distro = 'arch') ]]; then pkgman='paru -S --noconfirm --needed'; elif [[ ($distro = 'termux') ]]; then pkgman='pkg install -y'; fi
+  if [[ ($distro = 'debian') ]]; then pkgman='sudo apt-get install -y'; elif [[ ($distro = 'arch'*) ]]; then pkgman='paru -S --noconfirm --needed'; elif [[ ($distro = 'termux') ]]; then pkgman='pkg install -y'; fi
 }
 
 function package_setup () {
