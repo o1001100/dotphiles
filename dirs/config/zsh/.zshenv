@@ -34,3 +34,11 @@ if $([ -f "$HOME/.cargo/env" ])
 then
   source "$HOME/.cargo/env"
 fi
+
+# set rust tmp location
+if [[ -d "$HOME/.cargo/tmp" ]]; then
+  export CARGO_TARGET_DIR="$HOME/.cargo/tmp"
+else
+  mkdir "$HOME/.cargo/tmp"
+  export CARGO_TARGET_DIR="$HOME/.cargo/tmp"
+fi

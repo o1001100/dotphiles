@@ -27,6 +27,7 @@ function dotphile_update () {
     for f in $(<$dots/configs/full.dir)
     do
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
+      rsync -crvl $dots/dirs/.zpreztorc $HOME/.config/zsh/.zpreztorc
     done
   elif [[ ($DOTS_TYPE = 'lite') ]]
   then
@@ -34,6 +35,7 @@ function dotphile_update () {
     for f in $(<$dots/configs/lite.dir)
     do
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
+      rsync -crvl $dots/dirs/.zpreztorclite $HOME/.config/zsh/.zpreztorc
     done
   elif [[ ($DOTS_TYPE = 'termux') ]]
   then
@@ -41,6 +43,7 @@ function dotphile_update () {
     for f in $(<$dots/configs/tmx.dir)
     do
       rsync -crvl $dots/dirs/$f/. $HOME/.$f
+      rsync -crvl $dots/dirs/.zpreztorclite $HOME/.config/zsh/.zpreztorc
     done
   fi
   if [[ ($full = true) ]]; then type='full'; elif [[ ($distro = 'termux') ]]; then type='termux'; else type='lite'; fi
