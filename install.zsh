@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 function title () {
-  echo "     _       _         _     _ _           "
+  export lcommit=`git log -1`
+  printf '%.s─' $(seq 1 $(tput cols))
+  echo "\n     _       _         _     _ _           "
   echo "    | |     | |       | |   (_) |          "
   echo "  __| | ___ | |_ _ __ | |__  _| | ___  ___ "
   echo " / _  |/ _ \| __| '_ \| '_ \| | |/ _ \/ __|"
@@ -9,7 +11,10 @@ function title () {
   echo " \__,_|\___/ \__| .__/|_| |_|_|_|\___||___/"
   echo "                 | |                        "
   echo "                 |_|      Running on: $PRETTY_NAME"
-  echo $title
+  echo "\n\nLatest Commit:"
+  echo $lcommit"\n"
+  printf '%.s─' $(seq 1 $(tput cols))
+  echo "\n"
 }
 
 function dotphile_update () {
