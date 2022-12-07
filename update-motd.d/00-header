@@ -1,0 +1,2 @@
+#!/bin/sh
+cat /home/l/.config/art/kms.txt
