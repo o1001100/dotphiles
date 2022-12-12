@@ -15,3 +15,4 @@ ca-certificates
 curl
 gnupg
 lsb-release
+cmake
