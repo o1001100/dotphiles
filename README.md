@@ -1,4 +1,2 @@
 # dotphiles
-just a repo to manage my dotfiles with an overcomplicated install script 
-
-dirty contents do not use!
+for gods sake dont look at this or use it
