@@ -18,6 +18,6 @@ bspc rule -a kooha manage=off
 
 # startup
 dunst &
-$HOME/.config/polybar/launch.sh
+$HOME/.config/polybar/scripts/launch.sh &
 picom --experimental-backends --config $HOME/.config/picom/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
