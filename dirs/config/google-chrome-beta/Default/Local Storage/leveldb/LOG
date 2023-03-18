@@ -1,0 +1,26 @@
+2023/03/18-16:06:09.535 3 Reusing MANIFEST /home/l/.config/google-chrome-beta/Default/Local Storage/leveldb/MANIFEST-000001
+2023/03/18-16:06:09.535 3 Recovering log #151
+2023/03/18-16:06:09.536 3 Reusing old log /home/l/.config/google-chrome-beta/Default/Local Storage/leveldb/000151.log 
+2023/03/18-16:08:44.759 4 Level-0 table #157: started
+2023/03/18-16:08:44.761 4 Level-0 table #157: 35077 bytes OK
+2023/03/18-16:08:44.763 4 Delete type=0 #151
+2023/03/18-16:25:35.447 4 Level-0 table #159: started
+2023/03/18-16:25:35.455 4 Level-0 table #159: 47727 bytes OK
+2023/03/18-16:25:35.457 4 Delete type=0 #156
+2023/03/18-16:26:45.943 3 Level-0 table #161: started
+2023/03/18-16:26:45.945 3 Level-0 table #161: 41674 bytes OK
+2023/03/18-16:26:45.947 3 Delete type=0 #158
+2023/03/18-16:38:29.583 4 Level-0 table #163: started
+2023/03/18-16:38:29.591 4 Level-0 table #163: 102590 bytes OK
+2023/03/18-16:38:29.593 4 Delete type=0 #160
+2023/03/18-16:38:29.593 4 Compacting 4@0 + 2@1 files
+2023/03/18-16:38:29.611 4 Generated table #164@0: 182 keys, 2419614 bytes
+2023/03/18-16:38:29.617 4 Generated table #165@0: 616 keys, 305906 bytes
+2023/03/18-16:38:29.617 4 Compacted 4@0 + 2@1 files => 2725520 bytes
+2023/03/18-16:38:29.619 4 compacted to: files[ 0 2 1 0 0 0 0 ]
+2023/03/18-16:38:29.619 4 Delete type=2 #163
+2023/03/18-16:38:29.620 4 Delete type=2 #161
+2023/03/18-16:38:29.620 4 Delete type=2 #159
+2023/03/18-16:38:29.620 4 Delete type=2 #154
+2023/03/18-16:38:29.620 4 Delete type=2 #153
+2023/03/18-16:38:29.620 4 Delete type=2 #157

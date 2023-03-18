@@ -1,0 +1,13 @@
+2023/03/12-19:25:50.761 50aa Creating DB /home/l/.config/google-chrome-beta/Default/IndexedDB/https_support.mellanox.com_0.indexeddb.leveldb since it was missing.
+2023/03/12-19:25:50.764 50aa Reusing MANIFEST /home/l/.config/google-chrome-beta/Default/IndexedDB/https_support.mellanox.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/03/12-19:25:54.487 53d6 Level-0 table #5: started
+2023/03/12-19:25:54.489 53d6 Level-0 table #5: 243079 bytes OK
+2023/03/12-19:25:54.491 53d6 Delete type=0 #3
+2023/03/12-19:25:54.491 53d6 Manual compaction at level-0 from '\x00\x09\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0a\x00\x00\x00' @ 0 : 0; will stop at (end)
+2023/03/12-19:26:24.365 53d6 Level-0 table #7: started
+2023/03/12-19:26:24.377 53d6 Level-0 table #7: 1153133 bytes OK
+2023/03/12-19:26:24.379 53d6 Delete type=0 #4
+2023/03/12-19:26:24.380 53d6 Compacting 1@1 + 1@2 files
+2023/03/12-19:26:24.397 53d6 Generated table #8@1: 1934 keys, 1116750 bytes
+2023/03/12-19:26:24.397 53d6 Compacted 1@1 + 1@2 files => 1116750 bytes
+2023/03/12-19:26:24.398 53d6 compacted to: files[ 0 0 1 0 0 0 0 ]

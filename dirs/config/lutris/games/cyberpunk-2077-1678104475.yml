@@ -1,0 +1,5 @@
+game:
+  exe: /home/l/d/Games/Cyberpunk 2077/bin/x64/Cyberpunk2077.exe
+system:
+  mangohud: false
+wine: {}

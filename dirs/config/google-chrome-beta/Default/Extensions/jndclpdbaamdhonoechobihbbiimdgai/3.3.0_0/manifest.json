@@ -1,0 +1,28 @@
+{
+   "app": {
+      "background": {
+         "persistent": false,
+         "scripts": [ "background.js" ]
+      }
+   },
+   "author": "chromeos-recovery-tool-admin@google.com",
+   "default_locale": "en",
+   "description": "__MSG_APP_DESCRIPTION__",
+   "icons": {
+      "128": "img/icons/icon128.png",
+      "16": "img/icons/icon16.png",
+      "256": "img/icons/icon256.png",
+      "32": "img/icons/icon32.png",
+      "48": "img/icons/icon48.png",
+      "64": "img/icons/icon64.png",
+      "96": "img/icons/icon96.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZ05Y5PLKxhj1H088gClu3VaZzRWnbyO937d3VtgFpcCr96vMF9WrObUqSvvjq6gAXZCAD55aXdT6gm9RALCcttGYaTBCYHulwfqc8khkdSSWwp7US8BuSlDd7LpDyUwBnjWE/yP+ccvYK1PyqklMotRU24gmPiygXCALxrAuh9QIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "38",
+   "name": "__MSG_APP_NAME__",
+   "permissions": [ "https://dl.google.com/dl/edgedl/chromeos/recovery/recovery2.json", "https://dl.google.com/dl/edgedl/chromeos/recovery/cloudready_recovery2.json", "https://www.google-analytics.com/", "chromeosInfoPrivate", "feedbackPrivate", "fileSystem", "imageWriterPrivate", "metricsPrivate", "storage" ],
+   "short_name": "__MSG_APP_SHORT_NAME__",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "3.3.0"
+}

@@ -1,0 +1,26 @@
+{
+   "app": {
+      "background": {
+         "scripts": [ "background.js" ]
+      }
+   },
+   "default_locale": "en",
+   "description": "__MSG_appDescription__",
+   "icons": {
+      "128": "assets/icon_128.png",
+      "144": "assets/icon_144.png",
+      "16": "assets/icon_16.png",
+      "36": "assets/icon_36.png",
+      "48": "assets/icon_48.png",
+      "78": "assets/icon_78.png",
+      "96": "assets/icon_96.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlqP91TTUUmTgKx4ENc7Is7sOrjvuTQxYKTgaglIHSNoys1zD+Dvrc58BaBea1wr/k6TuMseplwhVEp9xGuhoTRyZNlHzk+8/YpntX3AO48rOYAH3JICojTx6B6QMRuGCovqnt4UdM8JAB1OyHycPka9fAFwAC0Zrhn2lLhw66uonOQnwm50hAzOMMmYx3pm9gWJ935T2LNHao+4lIKO4BRrHwSRHZMjrjzIMVVFW2AKd+WT9krKIrjadX69RFdRLc9tfCbKlGaMS9ozVqaxakQxJQBPK9wpEKoTrwMAxy18XrSYMDeXR8fCOkyy3VCMT+rL7cMETs+9/CK78A4g3LwIDAQAB",
+   "manifest_version": 2,
+   "name": "Cog - System Info Viewer",
+   "permissions": [ "storage", "system.cpu", "system.display", "system.memory", "system.network", "system.storage" ],
+   "short_name": "Cog",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "0.0.14",
+   "version_name": "0.0.14"
+}

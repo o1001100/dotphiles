@@ -1,0 +1,190 @@
+{
+   "alwaysOnTopSetting": {
+      "description": "The label for the checkbox in settings tab that sets the window always on top.",
+      "message": "Alltid øverst"
+   },
+   "appDesc": {
+      "description": "The description of the application, displayed in the web store.",
+      "message": "Et tekstredigeringsprogram for Chrome OS og Chrome."
+   },
+   "cancelDialogButton": {
+      "description": "The button text which says 'Cancel'.",
+      "message": "Avbryt"
+   },
+   "closeButton": {
+      "description": "The button text to close the app window.",
+      "message": "Avslutt"
+   },
+   "closeFileButton": {
+      "description": "The button text to close a file.",
+      "message": "Lukk filen"
+   },
+   "closeSettings": {
+      "description": "The text to close the settings Menu.",
+      "message": "Tilbake"
+   },
+   "closeSidebarButton": {
+      "description": "The button text to close the sidebar.",
+      "message": "Lukk sidefeltet"
+   },
+   "darkThemeOption": {
+      "description": "The text of the dark Option Theme.",
+      "message": "Mørkt"
+   },
+   "defaultThemeOption": {
+      "description": "The text of the default Option Theme.",
+      "message": "Standard"
+   },
+   "deviceThemeOption": {
+      "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app.",
+      "message": "Bruk temaet fra enheten"
+   },
+   "errorTitle": {
+      "description": "The error text displayed in the filename title bar.",
+      "message": "Feil"
+   },
+   "fileMenuNew": {
+      "description": "The text of the File Menu 'New'.",
+      "message": "Ny"
+   },
+   "fileMenuOpen": {
+      "description": "The text of the File Menu 'Open'.",
+      "message": "Åpne"
+   },
+   "fileMenuSave": {
+      "description": "The text of the File Menu 'Save'.",
+      "message": "Lagre"
+   },
+   "fileMenuSaveas": {
+      "description": "The text of the File Menu 'Save as'.",
+      "message": "Lagre som"
+   },
+   "fontsizeSetting": {
+      "description": "The text of the settings 'Font size'.",
+      "message": "Skriftstørrelse"
+   },
+   "fontsizeTooltip": {
+      "description": "The tooltip of the setting 'Font size'.",
+      "message": "Velg med Ctrl- og Ctrl+"
+   },
+   "helpSection": {
+      "description": "Title for a section with useful links to help articles.",
+      "message": "Hjelp"
+   },
+   "lightThemeOption": {
+      "description": "The text of the light Option Theme.",
+      "message": "Lyst"
+   },
+   "linenumbersSetting": {
+      "description": "The text of the line numbers setting.",
+      "message": "Vis linjenumre"
+   },
+   "loadingTitle": {
+      "description": "The text displayed in the filename title bar when file loads.",
+      "message": "Laster inn …"
+   },
+   "maximizeButton": {
+      "description": "The button text to maximize the app window.",
+      "message": "Maksimer"
+   },
+   "menuSettings": {
+      "description": "The text of the Menu 'Settings'.",
+      "message": "Innstillinger"
+   },
+   "menuShortcuts": {
+      "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app.",
+      "message": "Hurtigtaster"
+   },
+   "minimizeButton": {
+      "description": "The button text to minimize the app window.",
+      "message": "Minimer"
+   },
+   "noDialogButton": {
+      "description": "The button text which says 'No'.",
+      "message": "Nei"
+   },
+   "okDialogButton": {
+      "description": "The button text which says 'OK'.",
+      "message": "OK"
+   },
+   "openSidebarButton": {
+      "description": "The button text to open the sidebar.",
+      "message": "Åpne sidefeltet"
+   },
+   "restoreButton": {
+      "description": "The button text to restore the app window.",
+      "message": "Gjenopprett"
+   },
+   "saveFilePromptLine1": {
+      "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+      "message": "$filename$ er endret.",
+      "placeholders": {
+         "filename": {
+            "content": "$1",
+            "example": "file.txt"
+         }
+      }
+   },
+   "saveFilePromptLine2": {
+      "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file.",
+      "message": "Vil du lagre filen før du lukker den?"
+   },
+   "screenReaderModeHelp": {
+      "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader.",
+      "message": "For å få en mer optimalisert opplevelse av skjermleseren bør du slå på skjermlesermodusen i innstillingsmenyen."
+   },
+   "screenReaderModeSetting": {
+      "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting.",
+      "message": "Skjermlesermodus"
+   },
+   "searchCounting": {
+      "description": "The text showing search counting.",
+      "message": "$searchIndex$ av $searchCount$",
+      "placeholders": {
+         "searchCount": {
+            "content": "$2",
+            "example": "Search count"
+         },
+         "searchIndex": {
+            "content": "$1",
+            "example": "Search index"
+         }
+      }
+   },
+   "searchNextButton": {
+      "description": "The button text to search the next result.",
+      "message": "Neste"
+   },
+   "searchPlaceholder": {
+      "description": "The placeholder text in the search input.",
+      "message": "Finn"
+   },
+   "searchPreviousButton": {
+      "description": "The button text to search the previous result.",
+      "message": "Forrige"
+   },
+   "smartindentSetting": {
+      "description": "The text of the settings 'Smart indent'.",
+      "message": "Smart innrykk"
+   },
+   "spacestabSetting": {
+      "description": "The text of the settings 'Tabs to spaces'.",
+      "message": "Gjør tabulatorer om til mellomrom"
+   },
+   "tabsizeSetting": {
+      "description": "The text of the settings 'Tab size'.",
+      "message": "Tabulatorstørrelse"
+   },
+   "themeSetting": {
+      "description": "The text of the theme setting.",
+      "message": "Temaer"
+   },
+   "wraplinesSetting": {
+      "description": "The text of the settings 'Wrap lines'.",
+      "message": "Bryt linjer"
+   },
+   "yesDialogButton": {
+      "description": "The button text which says 'Yes'.",
+      "message": "Ja"
+   }
+}

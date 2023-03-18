@@ -14,3 +14,9 @@ alias shitfuck='export GPG_TTY=$(tty)'
 
 # wttr
 alias wttr='curl "wttr.in/?0F"'
+
+# monitor mode on
+alias monitor-on='sudo airmon-ng start wlan0 && sudo ip link set wlan0mon down && sudo macchanger -a wlan0mon && sudo ip link set wlan0mon up'
+
+# monitor mode off
+alias monitor-off='sudo airmon-ng stop wlan0mon'

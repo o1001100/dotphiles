@@ -1,0 +1,11 @@
+game:
+  args: ''
+  exe: /home/l/d/Games/Returnal/SmartSteamLoader_x64.exe
+system:
+  disable_runtime: false
+  gamemode: true
+wine:
+  esync: true
+  fsync: true
+  overrides: {}
+  version: lutris-GE-Proton7-38-x86_64

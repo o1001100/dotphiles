@@ -1,0 +1,266 @@
+/*
+	Container styles
+*/
+
+.toolbox-extension-container {
+	display: flex !important;
+	justify-content: space-between !important;
+	flex-wrap: wrap !important;
+	width: 100% !important;
+	margin: 5px 0px 0px 0px !important;
+}
+.toolbox-extension-container .toolbox-extension-button {
+	flex: 1 !important;
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+
+/*
+	Button and dropdown styles
+*/
+
+.toolbox-extension-button {
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	color: #fff;
+	font-size: 14px;
+	padding: 0 20px;
+	font-style: normal;
+	font-weight: 500;
+	text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+	vertical-align: middle;
+	display: inline-block;
+	margin-left: 2px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+.toolbox-extension-button button {
+	cursor: pointer !important;
+}
+.toolbox-extension-button:hover {
+	box-shadow: inset 0 -2px 0 rgba(0,0,0,0.27);
+}
+.ap-button {
+	background: #000000;
+}
+.ap-button:hover {
+	background: #333333;
+}
+.appbrain-button {
+	background: #3F51B5;
+}
+.appbrain-button:hover {
+	background: #5568d1;
+}
+.apkmirror-button, .testing-button {
+	background: #dddddd;
+	color: #8b8b8b;
+}
+.testing-enabled-button {
+	background: #009688;
+	color: #fff;
+}
+.testing-enabled-button:hover {
+	background: #26A69A;
+}
+.apkmirror-enabled-button {
+	background: #FF8B14 !important;
+	color: #fff;
+}
+.apkmirror-enabled-button:hover {
+	background: #fca144 !important;
+}
+.playstore-button {
+	background: #00abc9;
+}
+.playstore-button:hover {
+	background: #00d9ff !important;
+}
+.toolbox-language-select, .toolbox-region-select {
+	margin: 10px 10px 0 0;
+	padding: 0 2px;
+	background: #FFFFFF;
+	box-shadow: 0 1px 0 rgb(0 0 0 / 5%);
+	border: 1px solid rgba(0,0,0,0.17);
+    color: #000;
+    cursor: pointer;
+	font-family: "Roboto",sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+	border-radius: 4px;
+	height: 30px;
+	line-height: 30px;
+	width: 80px;
+}
+@media screen and (min-width: 1160px) {
+	.toolbox-language-select, .toolbox-region-select {
+		width: 110px;
+	}
+}
+@media screen and (min-width: 1350px) {
+	.toolbox-language-select, .toolbox-region-select {
+		width: 160px;
+	}
+}
+/* Fix for extra spacing around Install/Wishlist buttons */
+.rlnrKc, .i9550b {
+	height: auto !important;
+}
+body.toolbox-extension-unified-site .toolbox-extension-container {
+	margin: 0 !important;
+}
+/* Fix spacing between Toolbox buttons and Play Store install button */
+body.toolbox-extension-unified-site .toolbox-extension-container + div {
+	margin-left: 2px !important;
+}
+/* Reduce spacing between wishlist button and Install/Toolbox buttons */
+body.toolbox-extension-unified-site .toolbox-extension-container + div + div {
+	padding-left: 0 !important;
+}
+body.toolbox-extension-unified-site .toolbox-extension-container .toolbox-extension-button {
+	border-radius: 8px;
+	z-index: 5;
+}
+@media screen and (min-width: 1280px) {
+	/* Make Toolbox buttons match larger buttons on this size to match rest of buttons */
+	body.toolbox-extension-unified-site .toolbox-extension-container .toolbox-extension-button {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		height: 44px;
+		line-height: 44px;
+	}
+	/* Reverse app icon becoming larger (because it clips through button row) */
+	body.toolbox-extension-unified-site img[alt="Icon image"] {
+		max-width: 180px !important;
+	}
+	body.toolbox-extension-unified-site img[alt="Icon image"] + img {
+		max-width: 140px !important;
+	}
+}
+.toolbox-extension-app-card-container a {
+	color: #FF8B14;
+}
+.toolbox-extension-app-card-container a:hover {
+	color: #fca144;
+}
+
+/*
+	Add scrollbar to screenshot container
+*/
+
+.toolbox-extension-gallery,
+.toolbox-extension-gallery-enabled div[role="list"] {
+	padding-bottom: 15px !important;
+	overflow-x: scroll !important;
+}
+.toolbox-extension-gallery::-webkit-scrollbar,
+.toolbox-extension-gallery-enabled div[role="list"]::-webkit-scrollbar {
+	height: 15px;
+}
+.toolbox-extension-gallery::-webkit-scrollbar-track,
+.toolbox-extension-gallery-enabled div[role="list"]::-webkit-scrollbar-track {
+	background: #eeeeee;
+	border-radius: 8px;
+}
+.toolbox-extension-gallery::-webkit-scrollbar-thumb,
+.toolbox-extension-gallery-enabled div[role="list"]::-webkit-scrollbar-thumb {
+	background: #949494;
+	border-radius: 8px;
+}
+.toolbox-extension-gallery::-webkit-scrollbar-thumb:hover,
+.toolbox-extension-gallery-enabled div[role="list"]::-webkit-scrollbar-thumb:hover {
+	background: #737373;
+}
+.toolbox-extension-gallery-enabled div[role="list"] div:first-of-type {
+	overflow-x: initial !important;
+}
+.toolbox-extension-gallery-enabled div[role="list"] button {
+	display: none !important;
+}
+
+/*
+	Language/region dropdown menus
+
+*/
+
+.toolbox-extension-site-controls {
+	display: none;
+}
+
+.toolbox-extension-site-controls:last-of-type {
+	display: inline-block;
+}
+
+body.toolbox-extension-unified-site .toolbox-extension-site-controls {
+	padding: 5px;
+	z-index: 5;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background: #FFF;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%);
+	max-width: 400px;
+}
+
+/*
+	Old Mobile Play Store styles
+*/
+
+.toolbox-settings-toolbar {
+	width: calc(100%-10px);
+	padding: 10px;
+	font-size: 16px;
+	color: #FFFFFF;
+	background: #333;
+	text-align: center;
+	user-select: none;
+	cursor: pointer;
+}
+body.toolbox-extension-mobile-site .toolbox-extension-container {
+	margin-bottom: 0 !important;
+	max-width: 570px !important;
+}
+body.toolbox-extension-mobile-site .toolbox-language-select, body.toolbox-extension-mobile-site .toolbox-region-select {
+	margin: 15px;
+	width: calc(100% - 30px);
+}
+/* Fix other UI elements */
+body.toolbox-extension-mobile-site .preregistration-container button, .toolbox-extension-mobile-site .buy-button-container {
+	min-width: 0px !important;
+	padding: 0 20px 0 20px !important;
+}
+body.toolbox-extension-mobile-site .wishlist-display {
+	float: none !important;
+	width: 100% !important;
+	margin-bottom: 10px !important;
+}
+
+/*
+	New unified Play Store styles
+*/
+
+/* Fix bottom tab bar covered up by popup */
+body.toolbox-extension-selects-enabled .P7NFWb {
+	bottom: 40px !important;
+}
+body.toolbox-extension-unified-site .toolbox-extension-site-controls select {
+	margin: 0;
+	flex: 1;
+	display: inline-block;
+}
+body.toolbox-extension-unified-site .toolbox-extension-site-controls select:first-child {
+	margin-right: 10px;
+}
+@media (min-width: 415px) {
+	body.toolbox-extension-unified-site .toolbox-extension-site-controls {
+		border-radius: 0 5px 0 0;
+	}
+}

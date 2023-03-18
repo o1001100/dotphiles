@@ -1,0 +1,17 @@
+{
+   "background": {
+      "service_worker": "bg.js"
+   },
+   "description": "Get source .crx extension file of any Chrome extension",
+   "host_permissions": [ "https://chrome.google.com/webstore/detail/" ],
+   "icons": {
+      "128": "icon_128.png",
+      "48": "icon_48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv/ZKQELPSoPeLrKZSe8KRs+FdG1iZ+w1k9jqhxy4py+Xwx5Is9MjnUE6RFODSqtZJTYZa83VM3ASltisU7yjZaeAQDt6cV5sPu1ilAdXUYnLDE3WREhTnMYIMYgiUfmEbis0Lkq9eEjvF4kBL9Zcy9D6UmNSuVVXtkTs9tCqlGlqnaJ9evpV4S0YClHl31ah8p7dFNXZC1oMerL765l/OdBF78D5Uakvn1/jjGbJ+LXOs9aHs1Y8S1XynYehpduw7rG/5ZxS05B7GzzYIm3CpLOIYQRJ7LQJO3eKus4hR+HWCfKRhct2YCI5eBaVy4p3uJzhnpIG1TzdOp6Xupkn7QIDAQAB",
+   "manifest_version": 3,
+   "name": "Get CRX",
+   "permissions": [ "contextMenus", "downloads" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.41"
+}

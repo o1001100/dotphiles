@@ -1,0 +1,7 @@
+2023/03/18-16:45:34.198 1226 Reusing MANIFEST /home/l/.config/google-chrome-beta/Default/IndexedDB/https_linuxhint.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/03/18-16:45:34.198 1226 Recovering log #3
+2023/03/18-16:45:34.199 1226 Reusing old log /home/l/.config/google-chrome-beta/Default/IndexedDB/https_linuxhint.com_0.indexeddb.leveldb/000003.log 
+2023/03/18-16:45:38.271 1228 Level-0 table #5: started
+2023/03/18-16:45:38.274 1228 Level-0 table #5: 6519 bytes OK
+2023/03/18-16:45:38.277 1228 Delete type=0 #3
+2023/03/18-16:45:38.277 1228 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

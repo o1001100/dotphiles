@@ -1,0 +1,452 @@
+: 1678012051:0;nvidia-xconfig
+: 1678012054:0;sudo nvidia-xconfig
+: 1678012200:0;sudo systemctl enable --now bluetooth
+: 1678012423:0;paru -S xorg
+: 1678100449:0;paru -R nvidia
+: 1678100612:0;mkinitcpio -P
+: 1678100667:0;paru -R linux linux-headers && paru -S linux-zen linux-zen-headers
+: 1678100774:0;paru -R nvidia-dkms
+: 1678100779:0;paru -S nvidia-dkms
+: 1678100865:0;sudo mkinitcpio -P
+: 1678100908:0;paru -S os-prober
+: 1678100931:0;ls /boot
+: 1678101002:0;sudo systemctl stop gdm.service
+: 1678101009:0;sudo systemctl enable gdm.service
+: 1678101122:0;ls /etc/X11/xorg.conf
+: 1678101129:0;sudo nano /etc/X11/xorg.conf
+: 1678101335:0;sudo touch /etc/X11/xorg.conf
+: 1678101349:0;bat /etc/X11/xorg.conf.nvidia-xconfig-original
+: 1678101356:0;less /etc/X11/xorg.conf.nvidia-xconfig-original
+: 1678101391:0;nano /etc/X11/xorg.conf.d/99-nvidia-options.conf
+: 1678101513:0;/usr/bin/nano /etc/X11/xorg.conf.d/99-nvidia-options.conf
+: 1678101747:0;neofetch
+: 1678101762:0;lspci -k | grep -A 2 -E "(VGA|3d)"
+: 1678101772:0;sudo nano /etc/X11/xorg.conf.d/99-nvidia-options.conf
+: 1678101999:0;paru -S --needed nvidia-settings nvidia-utils
+: 1678102006:0;nvidia-settings
+: 1678102198:0;paru -S xorg-xrandr
+: 1678102267:0;sudo mv /etc/X11/xorg.conf.d/99-nvidia-options.conf /etc/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
+: 1678102278:0;sudo nano /etc/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
+: 1678102321:0;nano ~/.xinitrc
+: 1678102445:0;nano /usr/share/gdm/greeter/autostart/optimus.desktop
+: 1678102453:0;sudo nano /usr/share/gdm/greeter/autostart/optimus.desktop
+: 1678102489:0;sudo cp /usr/share/gdm/greeter/autostart/optimus.desktop /etc/xdg/autostart/optimus.desktop
+: 1678102578:0;paru -R gdm
+: 1678102622:0;paru -S gdm-prime optimus-manager
+: 1678102776:0;paru -S bat
+: 1678102889:0;sudo rm /etc/X11/xorg.conf.d/10-optimus-manager.conf
+: 1678102899:0;sudo rm /etc/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf
+: 1678102920:0;sudo rm /etc/X11/xorg.conf
+: 1678103136:0;paru -S gamemode mangohud
+: 1678103416:0;paru -S wine winetricks
+: 1678103448:0;wineconfig
+: 1678103537:0;fdisk -l
+: 1678103542:0;sudo fdisk -l
+: 1678103632:0;nano /etc/fstab
+: 1678103690:0;paru ntfs
+: 1678103780:0;id -u l
+: 1678103857:0;sudo mkdir /mnt/c
+: 1678103858:0;sudo mkdir /mnt/d
+: 1678103874:0;ln -s /mnt/c ~/c
+: 1678103877:0;ln -s /mnt/d ~/d
+: 1678104034:0;ls -al /dev/disk/by-uuid
+: 1678104040:0;lsblk
+: 1678104056:0;sudo nano /etc/fstab
+: 1678104353:0;ls d
+: 1678104355:0;ls c
+: 1678104362:0;os-prober
+: 1678104367:0;sudo os-prober
+: 1678104381:0;sudo grub-mkconfig -o /boot/grub/grub.cfg
+: 1678065994:0;paru -R gnome-calculator gnome-calendar gnome-contacts gnome-characters gnome-clocks gnome-maps gnome-music gnome-photos gnome-system-monitor gnome-video-effects gnome-weather
+: 1678066004:0;paru -R gnome-calculator gnome-calendar gnome-contacts gnome-characters gnome-clocks gnome-maps gnome-music gnome-photos gnome-system-monitor  gnome-weather
+: 1678066031:0;paru -R evince
+: 1678066083:0;paru -R epiphany
+: 1678066105:0;paru -R totem
+: 1678066164:0;paru -R eog
+: 1678066271:0;optimus-manager -h
+: 1678066460:0;optimus-manager --print-next-mode
+: 1678066506:0;sudo cp /usr/share/optimus-manager.conf
+: 1678066516:0;sudo cp /usr/share/optimus-manager.conf /etc/optimus-manager/optimus-manager.conf
+: 1678103032:0;paru -S tigervnc
+: 1678103055:0;vncpasswd
+: 1678103156:0;echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+: 1678103161:0;echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+: 1678103166:0;sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+: 1678103209:0;sudo tailscale up -h
+: 1678103413:0;ls /usr/share/xsessions
+: 1678103441:0;nano /etc/gdm/custom.conf
+: 1678103473:0;sudo systemctl enable --now vncserver:1
+: 1678103541:0;paru -S novnc
+: 1678103658:0;find -g
+: 1678103659:0;find -h
+: 1678103662:0;find --help
+: 1678103696:0;tldr -h
+: 1678103699:0;tldr -u
+: 1678103713:0;tldr find
+: 1678103776:0;find root_path -name '*.service'
+: 1678103783:0;find / -name '*.service'
+: 1678103816:0;find / -name '*vnc*.service'
+: 1678103821:0;sudo find / -name '*vnc*.service'
+: 1678103887:0;sudo systemctl enable --now novnc@:6969
+: 1678103918:0;nano /usr/lib/systemd/system/novnc@.service
+: 1678103977:0;novnc -h
+: 1678104072:0;sudo systemctl enable --now novnc
+: 1678104078:0;sudo systemctl enable --now novnc@
+: 1678104423:0;sudo systemctl enable --now vncserver@1
+: 1678104468:0;sudo systemctl stop vncserver@:1.service
+: 1678104472:0;sudo systemctl stop vncserver@1.service
+: 1678104485:0;sudo systemctl enable --now vncserver@gamegear:1
+: 1678104499:0;systemctl status vncserver@gamegear:1.service
+: 1678104545:0;sudo systemctl stop vncserver@gamegear:1.service
+: 1678104575:0;sudo systemctl stop novnc@:6969.service
+: 1678104581:0;sudo systemctl enable --now novnc@:1
+: 1678104610:0;sudo systemctl stop novnc@:1.service
+: 1678104635:0;sudo systemctl enable --now novnc@:5901
+: 1678104715:0;nano /etc/tigervnc/vncserver-config-defaults
+: 1678104800:0;sudo systemctl restart vncserver@:1
+: 1678104968:0;sudo nano /etc/gdm/custom.conf
+: 1678105233:0;systemctl enable --now vncserver@:1.service
+: 1678105274:0;nano .vnc/gamegear:1.log
+: 1678105289:0;sudo systemctl restart vncserver@:1.service
+: 1678105292:0;systemctl status vncserver@:1.service
+: 1678105303:0;vncserver -h
+: 1678105313:0;pidof tigervnc
+: 1678105317:0;pidof *vnc
+: 1678105322:0;pidof '*vnc*'
+: 1678105325:0;pidof vnc
+: 1678105327:0;pidof vncserver
+: 1678105407:0;tldr vncserver
+: 1678105490:0;sudo systemctl restart novnc@:5901.service
+: 1678105495:0;sudo systemctl restart novnc@gamegear:5901.service
+: 1678105505:0;sudo systemctl stop novnc@gamegear:5901.service
+: 1678105515:0;sudo systemctl stop novnc@:5901.service
+: 1678105523:0;pkill 90
+: 1678105525:0;pkill 907
+: 1678105537:0;sudo pkill 907
+: 1678105553:0;pidof 515
+: 1678105613:0;sudo systemctl disable novnc@:gamegear:5901
+: 1678105620:0;sudo systemctl disable novnc@:5901
+: 1678105624:0;sudo systemctl disable novnc@gamegear:5901
+: 1678105631:0;sudo pkill 515
+: 1678105863:0;startx
+: 1678105911:0;sudo nano /etc/optimus-manager/optimus-manager.conf
+: 1678105990:0;optimus-manager --switch integrated
+: 1678106037:0;sudo nano /etc/X11/xorg.conf.d/10-optimus-manager.conf
+: 1678106062:0;optimus-manager --print-startup
+: 1678106183:0;rm -f /tmp/.X11-unix/X1
+: 1678106190:0;sudo systemctl enable --now vncserver@:1.service
+: 1678106197:0;sudo systemctl status vncserver@:1.service
+: 1678106257:0;rm -f /tmp/.X1
+: 1678106288:0;sudo nano /etc/tigervnc/vncserver-config-defaults
+: 1678106377:0;rm -f /tmp/.X11-unix
+: 1678106381:0;rm -rf /tmp/.X11-unix
+: 1678106386:0;ls /tmp
+: 1678106415:0;sudo rm -rf /tmp/systemd-private-32019a5d9700421ab6a7c4d491788396-novnc@:*
+: 1678106461:0;ps ax | grep vnc
+: 1678106486:0;ps -C novnc
+: 1678106492:0;ps -C vncserver
+: 1678106548:0;ps -C xorg
+: 1678106564:0;pkill 5585
+: 1678106566:0;ps -C Xorg
+: 1678106593:0;kill Xorg
+: 1678106599:0;kill 5585
+: 1678106643:0;ps -C VNC
+: 1678106647:0;ps -C vnc
+: 1678106651:0;ps -C tigervnc
+: 1678106656:0;ps -C xtightvnc
+: 1678106662:0;ps -C *vnc*
+: 1678106665:0;ps -C '*vnc*'
+: 1678106672:0;ps -ax
+: 1678106678:0;ps -ax | grep *vnc*
+: 1678106681:0;ps -ax | grep '*vnc*'
+: 1678106720:0;sudo systemctl disable novnc@:1.service
+: 1678106722:0;sudo systemctl status novnc@:1.service
+: 1678106754:0;sudo systemctl status novnc@:6969.service
+: 1678106812:0;vncserver -kill :1
+: 1678106815:0;vncserver --kill :1
+: 1678106831:0;sudo kill 12071
+: 1678106834:0;sudo kill 12081
+: 1678106838:0;kill 12071
+: 1678106857:0;sudo kill 12372
+: 1678106880:0;ps -ax | grep vncd
+: 1678106892:0;vncserver :1
+: 1678106940:0;sudo systemctl enable --now novnc@gamegear:5901
+: 1678106963:0;sudo systemctl enable --now vncserver@:1
+: 1678106971:0;sudo systemctl status vncserver@:1
+: 1678107005:0;sudo nano /etc/tigervnc/vncserver.users
+: 1678107026:0;sudo systemctl status vncserver@:2
+: 1678107034:0;sudo systemctl enable --now novnc@gamegear:5902
+: 1678107082:0;ps -ax | grep vnc
+: 1678107204:0;journalctl 
+: 1678107344:0;sudo systemctl list-unit-files | grep enabled
+: 1678107355:0;sudo systemctl list-unit-files | grep vnc
+: 1678107405:0;sudo sudo systemctl status novnc@gamegear:5901.service
+: 1678107480:0;bat .vnc/gamegear:2.log
+: 1678107647:0;sudo nano /usr/lib/systemd/system/novnc@.service
+: 1678107676:0;sudo nano /usr/lib/systemd/system/vncserver@.service
+: 1678107750:0;sudo systemctl enable --now vncserver@:2
+: 1678107756:0;sudo sudo systemctl status novnc@gamegear:5902.service
+: 1678107760:0;sudo sudo systemctl status vncserver@:2.service
+: 1678107918:0;optimus-manager --switch nvidia
+: 1678107970:0;sudo systemctl status vncserver@:2.service
+: 1678107980:0;sudo systemctl restart vncserver@:2.service
+: 1678107999:0;nano .vnc/config
+: 1678108079:0;sudo systemctl disbale --now novnc@gamegear:5901
+: 1678108150:0;systemctl list-unit-files | grep enabled
+: 1678108176:0;sudo systemctl disable --now novnc@.service
+: 1678108181:0;sudo systemctl disable --now novnc@*
+: 1678108185:0;sudo systemctl disable --now 'novnc@*'
+: 1678108199:0;sudo systemctl disable --now "novnc@*"
+: 1678108211:0;sudo systemctl disable --now novnc@:6969.service
+: 1678108231:0;sudo systemctl disable --now novnc@gamegear:5901
+: 1678108233:0;sudo systemctl disable --now novnc@gamegear:5902
+: 1678108259:0;sudo systemctl disable --now vncserver@:0
+: 1678108263:0;sudo systemctl disable --now vncserver@:2
+: 1678108265:0;systemctl list-unit-files | grep vnc
+: 1678108296:0;tldr systemctl
+: 1678108313:0;systemctl list-units --type=service
+: 1678108326:0;sudo systemctl disable --now vncserver@:1
+: 1678108334:0;sudo systemctl disable --now vncserver@gamegear:1
+: 1678108339:0;systemctl list-units --type=service | grep vnc
+: 1678108347:0;sudo systemctl disable --now vncserver@1
+: 1678168659:0;sudo nano /etc/locale.gen
+: 1678168670:0;locale-gen
+: 1678168676:0;fuck
+: 1678168984:0;paru -S gnome-browser-connector
+: 1678170691:0;sudo tailscale up --accept-routes --ssh --advertise-routes=10.1.1.0/24 --advertise-exit-node
+: 1678170713:0;sudo tailscale up --accept-routes --ssh --advertise-routes=10.1.1.0/24 --advertise-exit-node --reset
+: 1678170852:0;paru gsound
+: 1678170860:0;paru -S libgda6
+: 1678174420:0;paru pacman-contrib
+: 1678174548:0;bat /usr/bin/checkupdates
+: 1678174816:0;kitty neofetch
+: 1678174920:0;paru psst
+: 1678175631:0;paru -R psst
+: 1678175634:0;paru -R psst-git
+: 1678175648:0;paru -S discord spotify
+: 1678175672:0;paru -S discord_arch_electron spotify
+: 1678175884:0;paru vscode
+: 1678190935:0;paru qbittorrent
+: 1678191559:0;paru mesa-git
+: 1678193637:0;paru -S mesa-git lib32-mesa-git
+: 1678195480:0;paru gst-plugins
+: 1678195801:0;paru gst-plugins-libd
+: 1678195823:0;paru -S gst-plugins-libde265
+: 1678195832:0;paru -S gst-plugin-libde265
+: 1678195843:0;paru gst-plugin
+: 1678195962:0;paru -S gst-plugin-good
+: 1678195967:0;paru -S gst-plugins-good
+: 1678196994:0;paru -S --needed giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal v4l-utils lib32-v4l-utils libpulse lib32-libpulse alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjpeg-turbo lib32-libjpeg-turbo libxcomposite lib32-libxcomposite libxinerama lib32-libxinerama ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader cups samba dosbox
+: 1678197064:0;paru wine-ge
+: 1678248766:0;paru -S logiops
+: 1678248869:0;paru wine-ge-custom
+: 1678248984:0;paru -S wine-ge-custom
+: 1678249263:0;cd dotp
+: 1678249284:0;find / -name 'dotphiles'
+: 1678249290:0;sudo find / -name 'dotphiles'
+: 1678249298:0;cd paru
+: 1678249303:0;mv dotphiles ../
+: 1678249304:0;cd
+: 1678249309:0;rm -r paru
+: 1678249312:0;rm -rf paru
+: 1678249323:0;la
+: 1678249366:0;git submodule add https://github.com/le0me55i/zsh-extract
+: 1678249379:0;ls systemd
+: 1678249384:0;ls zsh-extract
+: 1678249397:0;ls ssh-connect
+: 1678249401:0;ls enhancd
+: 1678249428:0;mv zsh-extract extract
+: 1678249432:0;ls extract
+: 1678249440:0;cd ../../..
+: 1678249443:0;cd ..
+: 1678249450:0;la dirs
+: 1678249458:0;rm dirs/.zpreztorclite
+: 1678249542:0;ls configs/aur.pkgs
+: 1678249546:0;nano configs/aur.pkgs
+: 1678249599:0;nano ~/.config/zsh/.aliases
+: 1678249636:0;wine
+: 1678249675:0;paru -S wget
+: 1678249707:0;wget https://github.com/GloriousEggroll/wine-ge-custom/releases/download/GE-Proton7-38/wine-lutris-GE-Proton7-38-x86_64.tar.xz
+: 1678249820:0;cd dirs/config/zsh
+: 1678249822:0;cd plugins
+: 1678249841:0;rm -rf extract
+: 1678249849:0;git submodule add https://github.com/le0me55i/zsh-extract extract
+: 1678249862:0;cd ../../../../..
+: 1678249870:0;nano .gitmodules
+: 1678249946:0;nano install.zsh
+: 1678250019:0;nano .config/zsh/plugins/extract/extract.plugin.zsh
+: 1678250129:0;mv .config/zsh/plugins/extract .config/zsh/plugins/zsh-extract
+: 1678250201:0;bat .config/zsh/plugins/zsh-extract/_extract
+: 1678250216:0;bat .config/zsh/plugins/zsh-extract/README.md
+: 1678250237:0;ls .config/zsh/plugins/enhancd
+: 1678250245:0;ls .config/zsh/plugins/ssh-connect
+: 1678250322:0;ls .config/zsh/plugins/zsh-extract/
+: 1678250367:0;source ~/.zshenv
+: 1678250487:0;nano .config/zsh/.zpreztorc
+: 1678250561:0;cd .local/share/lutris/runners/wine/
+: 1678250571:0;x wine-lutris-GE-Proton7-38-x86_64.tar.xz
+: 1678250599:0;ls lutris-GE-Proton7-38-x86_64
+: 1678341199:0;paru -S mesa lib32-mesa
+: 1678347717:0;paru vlc
+: 1678582820:0;top
+: 1678585590:0;paru speedtest
+: 1678609159:0;macchanger
+: 1678609163:0;paru -S maccchanger
+: 1678609171:0;paru -S macchanger
+: 1678609350:0;tldr macchanger
+: 1678609372:0;macchanger -r wlan0
+: 1678609440:0;ip link show tailscale0
+: 1678609460:0;ip link show enp8s0f1
+: 1678609464:0;ip link show lo
+: 1678609575:0;ip link
+: 1678609639:0;cat /sys/class/net/wlp0s20f3/address
+: 1678609665:0;file /sys/class/net/*
+: 1678609831:0;sudo nano /etc/udev/rules.d/10-network.rules
+: 1678610073:0;paru update-grub
+: 1678610228:0;ls /etc/udev/rules.d
+: 1678610415:0;sudo nano /etc/default/grub
+: 1678610993:0;grub-update
+: 1678610998:0;update-grub
+: 1678611000:0;sudo update-grub
+: 1678611030:0;nano /boot/grub/grub.cfg
+: 1678611065:0;clear
+: 1678611162:0;sudo reboot now
+: 1678611251:0;ip link show wlan0
+: 1678611256:0;ip link show wlp0s20f3
+: 1678611493:0;sudo nano /etc/systemd/system/macspoof@.service
+: 1678611510:0;macchanger -s
+: 1678611512:0;macchanger -h
+: 1678611557:0;macchanger -a
+: 1678611559:0;macchanger -a wlan0
+: 1678611568:0;sudo macchanger -a wlan0
+: 1678611614:0;sudo systemctl enable --now macspoof@wlan0
+: 1678611623:0;sudo systemctl status macspoof@wlan0
+: 1678611635:0;sudo reboot
+: 1678611794:0;macchanger -s wl
+: 1678611911:0;paru -S aircrack-ng
+: 1678612202:0;sudo airodump-ng wlan0mon -essid CAC_Admin
+: 1678612299:0;mkdir ~/homework
+: 1678612312:0;sudo airodump-ng wlan0mon -c 3 -b 78:45:58:BC:D3:9C -w ~/homework/admin
+: 1678612330:0;ls homework
+: 1678612343:0;rm homework/admin-01.*
+: 1678612346:0;rm -rf homework/admin-01.*
+: 1678612357:0;mkdir homework/admin
+: 1678612490:0;sudo airodump-ng wlan0mon -c 6 -b 78:45:58:BC:D3:9C -w ~/homework/admin/admin
+: 1678612662:0;sudo aireplay-ng --deauth 0 -c 22:D2:18:3D:9F:C4 -a 7E:45:58:74:2A:A8 wlan0mon
+: 1678612740:0;sudo aireplay-ng --deauth 0 -c B8:9B:25:C4:02:CA -a 7E:45:58:74:2A:A8 wlan0mon
+: 1678612946:0;sudo airodump-ng wlan0mon --essid CAC_Admin
+: 1678613046:0;sudo airodump-ng wlan0mon --essid US_Admin
+: 1678613110:0;sudo aireplay-ng --deauth -h
+: 1678613116:0;sudo aireplay-ng --help
+: 1678613175:0;sudo airodump-ng wlan0mon -c 6 -b 86:45:58:74:2A:A8 -w ~/homework/admin/admin
+: 1678613311:0;rm -rf homework/admin/admin-01.*
+: 1678613410:0;macchanger -s wlan0
+: 1678613412:0;macchanger -s wlan0mon
+: 1678613463:0;sudo airmon-ng --help
+: 1678613473:0;sudo airmon-ng stop wlan0mon
+: 1678613504:0;sudo airmon-ng start wlan0
+: 1678613517:0;ip link set down wlan0mon
+: 1678613522:0;sudo ip link set down wlan0mon
+: 1678613525:0;sudo macchanger -a wlan0mon
+: 1678613533:0;sudo ip link set up wlan0mon
+: 1678613646:0;echo 'sudo airmon-ng start wlan0' | tee -a ~/dotphiles/dirs/config/zsh/.aliases
+: 1678613669:0;bat dotphiles/dirs/config/zsh/.aliases
+: 1678613710:0;nano dotphiles/dirs/config/zsh/.aliases
+: 1678613811:0;sudo ip link set wlan0mon down
+: 1678613814:0;sudo ip link set wlan0mon up
+: 1678613994:0;ls .config/zsh/plugins/
+: 1678613999:0;ls .config/zsh/plugins/extract
+: 1678614003:0;ls .config/zsh/plugins/zsh-extract
+: 1678614019:0;bat .config/zsh/plugins/zsh-extract/zsh-extract.plugin.zsh
+: 1678614051:0;ls dotphiles/dirs/config/zsh
+: 1678614057:0;ls dotphiles/dirs/config/zsh/plugins
+: 1678614062:0;ls dotphiles/dirs/config/zsh/plugins/extract
+: 1678614161:0;mv .config/zsh/plugins/zsh-extract/zsh-extract.plugin.zsh  .config/zsh/plugins/zsh-extract/extract.plugin.zsh
+: 1678614218:0;mv .config/zsh/plugins/zsh-extract/extract.plugin.zsh  .config/zsh/plugins/zsh-extract/zsh-extract.plugin.zsh
+: 1678614226:0;extract
+: 1678614256:0;monitor-on
+: 1678614303:0;sudo airodump-ng wlan0mon
+: 1678614888:0;monitor-off
+: 1678706785:0;wineconsole
+: 1678706791:0;winecfg
+: 1678706929:0;wine taskmanager
+: 1678706968:0;wine version
+: 1678706972:0;wine -version
+: 1678706976:0;wine -v
+: 1678706979:0;wine --version
+: 1678707026:0;winemine
+: 1678707142:0;winelauncher taskmanager
+: 1678707146:0;wine winelauncher
+: 1678707153:0;wine launcher 
+: 1678707160:0;wine Vortex-1-1-7-8-1675857943.exe
+: 1678707370:0;wine uninstaller
+: 1678707393:0;wine64 Vortex-1-1-7-8-1675857943.exe
+: 1678707458:0;wine taskmgr
+: 1678707476:0;wine64 uninstaller
+: 1678707968:0;rm -rf .exe}
+: 1678707973:0;rm -rf 
+: 1678708072:0;rm -rf !(*.exe)
+: 1678708079:0;rm -rf !('*.exe')
+: 1678708084:0;rm -rf !(*'.exe')
+: 1678708124:0;rm -rf '.exe']
+: 1678708214:0;rm -rf *.
+: 1678708225:0;rm -rf *!'.exe'
+: 1678708249:0;rm -rf *.!(exe)
+: 1678708259:0;rm *.!(exe)
+: 1678708324:0;rm *~*.txt
+: 1678873456:0;paru -R discord
+: 1678873477:0;pidof discord
+: 1678873562:0;paru discord
+: 1678873584:0;paru -S discord
+: 1678948386:0;paru gzdoom
+: 1678948457:0;extract doom1_doom2_doom3_wad_plutonia_wad_tnt_wad.rar
+: 1678948464:0;paru unrar
+: 1678948478:0;extract doom1_doom2_doom3_wad_plutonia_wad_tnt_wad.rar -r
+: 1678948485:0;ls doom1_doom2_doom3_wad_plutonia_wad_tnt_wad
+: 1678948488:0;ls doom1_doom2_doom3_wad_plutonia_wad_tnt_wad/Wads
+: 1678948500:0;rm -rf doom1_doom2_doom3_wad_plutonia_wad_tnt_wad.rar
+: 1678948520:0;mkdir ~/d/DOOM
+: 1678948524:0;cd doom1_doom2_doom3_wad_plutonia_wad_tnt_wad
+: 1678948526:0;cd Wads
+: 1678948540:0;mv * ~/d/DOOM
+: 1678948545:0;cd ../..
+: 1678948548:0;rm -rf doom1_doom2_doom3_wad_plutonia_wad_tnt_wad
+: 1678948559:0;rm -rf ~/d/DOOM/Doom3.WAD
+: 1678949560:0;nano .config/gzdoom/gzdoom.ini
+: 1678949767:0;cd Downloads
+: 1678949776:0;extract -r Ultimate\ Doom,\ The.zip
+: 1678949779:0;extract -r SIGIL\ \(v1.21\).zip
+: 1678949793:0;mv SIGIL\ \(v1.21\)/SIGIL_v1_21.wad ~/d/DOOM
+: 1678949800:0;mv Ultimate\ Doom,\ The/DOOM.WAD ~/d/DOOM
+: 1678949824:0;rm -rf SIGIL\ \(v1.21\)/ Ultimate\ Doom,\ The ~/d/DOOM/Doom1.WAD
+: 1679105417:0;paru
+: 1679114875:0;paru virtualbox
+: 1679115603:0;sudo reboot 
+: 1679115742:0;usermod -aG vboxusers l
+: 1679115745:0;sudo usermod -aG vboxusers l
+: 1679115780:0;logout
+: 1679116885:0;btop
+: 1679117065:0;paru tailscale
+: 1679117428:0;cd dotphiles
+: 1679117430:0;ls
+: 1679117481:0;git submodule add https://github.com/marlonrichert/zsh-autocomplete.git dirs/config/zsh/plugins/zsh-autocomplete 
+: 1679117513:0;nano dirs/config/zsh/.zpreztorc
+: 1679117559:0;bat dirs/config/zsh/.zshrc
+: 1679117590:0;bat dirs/config/zsh/.zshenv
+: 1679117630:0;code
+: 1679117639:0;nano dirs/config/zsh/.zshenv
+: 1679117651:0;./install.zsh -u
+: 1679117696:0;ls Downloads
+: 1679117955:0;paru -h
+: 1679117975:0;paru -c
+: 1679117989:0;tldr paru
+: 1679118008:0;exit
+: 1679118012:0;clear
+: 1679118120:0;cd dotphiles
+: 1679118122:0;ls
+: 1679118132:0;nano .gitmodules
+: 1679118153:0;nano dirs/config/zsh/.zpreztorc
+: 1679118425:0;git submodule add https://github.com/marlonrichert/zsh-autocomplete.git dirs/config/zsh/plugins/zsh-autocomplete 
+: 1679118435:0;bat .gitmodules
+: 1679118475:0;rm -rf dirs/config ; git submodule add https://github.com/marlonrichert/zsh-autocomplete.git dirs/config/zsh/plugins/zsh-autocomplete
+: 1679118609:0;cp --recursive ~/.config dirs

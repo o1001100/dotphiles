@@ -23,7 +23,7 @@ if [[ -z "$EDITOR" ]]; then
   export EDITOR='nano'
 fi
 if [[ -z "$VISUAL" ]]; then
-  export VISUAL='nano'
+  export VISUAL='code'
 fi
 if [[ -z "$PAGER" ]]; then
   export PAGER='bat'
@@ -42,3 +42,7 @@ else
   mkdir "$HOME/.cargo/tmp"
   export CARGO_TARGET_DIR="$HOME/.cargo/tmp"
 fi
+
+# setting variables for installer
+export DOTS_TYPE='lite'
+export DOTS_LOCATION='/home/l/dotphiles'

@@ -20,14 +20,12 @@ bspwm
 picom
 kitty
 dunst
-spotifyd
-spotify-tui
 neofetch
 rofi
 sxhkd
-via-appimage
 ttf-opensans
 onefetch
 openssl
 libssh
 libgit2
+ttf-google-sans

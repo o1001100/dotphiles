@@ -1,0 +1,167 @@
+<html>
+
+<head>
+  <link rel="icon" type="image/png" href="img/icon16.png">
+  <link type="text/css" rel="stylesheet" href="css/icon-font.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Toolbox Settings</title>
+  <style>
+    body {
+      background: #f1f1f1;
+    }
+
+    nav {
+      background: #26a69a;
+    }
+
+    nav .brand-logo {
+      font-size: 150%;
+      font-weight: 400;
+      padding-left: 26px;
+    }
+
+    .container {
+      margin-top: 10px;
+    }
+
+    p {
+      margin-bottom: 5px !important;
+      font-size: 1rem !important;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .collection {
+      border: none !important;
+    }
+
+    .collection-item p {
+      padding-right: 115px;
+    }
+
+    .title {
+      font-weight: bold;
+    }
+
+    @media screen and (max-width: 992px) {
+      nav .brand-logo {
+        padding-left: 0 !important;
+      }
+
+      #toast-container {
+        padding: 20px !important;
+      }
+    }
+
+    /* Hide circle icons on small screens */
+    @media screen and (max-width: 480px) {
+      .circle {
+        display: none !important;
+      }
+
+      .collection .collection-item.avatar {
+        padding-left: 20px !important;
+        margin-bottom: 20px !important;
+        display: inline-block !important;
+      }
+
+      .secondary-content {
+        float: right !important;
+      }
+
+    }
+
+    /* Move sliders for setting items to new row */
+    @media screen and (max-width: 380px) {
+      .collection-item p {
+        padding-right: 0 !important;
+      }
+
+      .secondary-content {
+        position: static !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Toolbox v<span id="version"></span></a>
+      </div>
+    </nav>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content"> <span class="card-title">About this extension</span>
+            <p>Toolbox for Google Play Store™ is an extension that enhances the Google Play Store™ with many different features, which can all be enabled or disabled below.</p>
+            <p>A quick settings panel can be accessed by clicking the Toolbox icon in your browser's toolbar.</p>
+          </div>
+        </div>
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item avatar"> <i class="material-icons circle orange">open_in_new</i> <span class="title">APKMirror button</span>
+              <p>This adds a button for <a href="https://www.apkmirror.com/" target="_blank">APKMirror</a> on app listings. When clicked, it opens the given application on APKMirror in a new tab. If the app has not been uploaded to APKMirror, the button will turn gray.</p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="apkmirror"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+            <li class="collection-item avatar"> <i class="material-icons circle black">open_in_new</i> <span class="title">Android Police button</span>
+              <p>This adds a button for <a href="https://www.androidpolice.com/" target="_blank">Android Police</a> on app listings. When clicked, it searches for posts about the given application on Android Police.</p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="androidpolice"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+            <li class="collection-item avatar"> <i class="material-icons circle blue">open_in_new</i> <span class="title">AppBrain button</span>
+              <p>This adds a button for <a href="https://www.appbrain.com/" target="_blank">AppBrain</a> on app listings. When clicked, it opens statistics about the given app on AppBrain's site.</p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="appbrain"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+            <li class="collection-item avatar"> <i class="material-icons circle purple">info_outline</i> <span class="title">Beta program button</span>
+              <p>This adds information about a given app's beta program on its app listing. If the app has a beta program, a button will be added to either join or leave it. <br /> <i>Note: Toolbox cannot automatically check for beta programs that first require joining a Google+ community or a Google Group.</i> </p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="testing"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+            <li class="collection-item avatar"> <i class="material-icons circle green">image</i> <span class="title">Better screenshot gallery</span>
+              <p>This replaces the arrow buttons on Play Store screenshot galleries with a horizontal scrollbar.</p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="screenshot"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+            <li class="collection-item avatar"> <i class="material-icons circle red">language</i> <span class="title">Language/region picker</span>
+              <p>This adds dropdown menus to the Play Store for changing the current display language and country/region, allowing you to check international prices and other information.</p> <span class="secondary-content">
+                <div class="switch"> <label> Off <input type="checkbox" id="language-dropdown"> <span class="lever"></span> On </label> </div>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-content"> <span class="card-title">Clear cache</span>
+            <p>Toolbox keeps a local cache of data from APKMirror (when the APKMirror button is turned on) in order to load results quicker. If you are experiencing bugs with the extension, you should try clearing the cache. This will not erase your settings.</p>
+            <p class="bigbutton"> <a href="#" class="waves-effect waves-light btn" id="cache-button">Clear cache</a> </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content"> <span class="card-title">Feedback</span>
+            <p>Do you have an idea for a feature we could add to Toolbox? Do you need to report a bug? Create an issue on GitHub from the link below.</p>
+            <p class="bigbutton"> <a href="https://github.com/android-police/toolbox-for-google-play-store-public/issues" target="_blank" class="waves-effect waves-light btn">Go to GitHub</a> </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content"> <span class="card-title">Privacy Policy</span>
+            <p>All data for this extension is stored locally on your device and is not shared with its developers or third parties. In addition, no analytics data is collected by the developers.</p>
+            <p>The only time Toolbox communicates with another service is when checking if a given app has been uploaded to APKMirror.com. Only the app's package name (e.g., com.google.android.apps.maps) is sent to the site. This can be disabled entirely by switching the 'APKMirror button' setting to off.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

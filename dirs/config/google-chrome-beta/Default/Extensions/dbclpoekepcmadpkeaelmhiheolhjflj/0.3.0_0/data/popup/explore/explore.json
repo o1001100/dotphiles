@@ -1,0 +1,20 @@
+[
+  {"id": "block-site", "title": "Block Site"},
+  {"id": "flag-plus", "title": "Country Flag +"},
+  {"id": "rule-blocker", "title": "Rule AdBlocker"},
+  {"id": "cache-cleaner", "title": "Cache Cleaner"},
+  {"id": "custom-dark-mode", "title": "Custom Dark Mode"},
+  {"id": "hide-tabs", "title": "Hide Tabs (Panic Button)"},
+  {"id": "block-image-video", "title": "Block Image|Video"},
+  {"id": "custom-style-script", "title": "Custom Style Script"},
+  {"id": "font-defender", "title": "Font Fingerprint Defender"},
+  {"id": "open-in-private-mode", "title": "Open in Private Mode"},
+  {"id": "webgl-defender", "title": "WebGL Fingerprint Defender"},
+  {"id": "canvas-defender", "title": "Canvas Fingerprint Defender"},
+  {"id": "change-timezone", "title": "Change Timezone (Time Shift)"},
+  {"id": "file-encryptor", "title": "File Guard (Encryptor | Decryptor)"},
+  {"id": "modify-header-value", "title": "Modify Header Value (HTTP Headers)"},
+  {"id": "change-geolocation", "title": "Change Geolocation (Location Guard)"},
+  {"id": "audiocontext-defender", "title": "AudioContext Fingerprint Defender"},
+  {"id": "access-control-allow-origin", "title": "Allow CORS: Access-Control-Allow-Origin"}
+]

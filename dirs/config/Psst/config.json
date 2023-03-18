@@ -1,0 +1,27 @@
+{
+  "credentials": {
+    "username": "27227zwhxyyyynh6es7yr8ji3",
+    "auth_data": "AQAYB85W5jJEBgIVwF3-7o8M-16Qh9JHmuK5G_GR7YS1JozGcpAOozzkbDtyfZM62uq7r6sJG7CNDzVzL5QBez6YXxX2VYxQZ0HX43pxgfAqIl6BV_Tz1Bi06L_7x3HxoggFinpbDHhQg0L6ZcQrHLFBRfTk6Zo",
+    "auth_type": 1
+  },
+  "audio_quality": "High",
+  "theme": "Light",
+  "volume": 1.0,
+  "last_route": {
+    "PlaylistDetail": {
+      "id": "37i9dQZEVXcFvfpda7nF5G",
+      "name": "Discover Weekly"
+    }
+  },
+  "queue_behavior": "Sequential",
+  "show_track_cover": false,
+  "window_size": {
+    "width": 1920.0,
+    "height": 1018.0
+  },
+  "slider_scroll_scale": {
+    "scale": 3.0,
+    "y": 1.0,
+    "x": 1.0
+  }
+}

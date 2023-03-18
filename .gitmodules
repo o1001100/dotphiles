@@ -22,3 +22,6 @@
 [submodule "dirs/config/zsh/.zprezto"]
 	path = dirs/config/zsh/.zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "dirs/config/zsh/plugins/extract"]
+	path = dirs/config/zsh/plugins/extract
+	url = https://github.com/le0me55i/zsh-extract

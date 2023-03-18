@@ -1,0 +1,190 @@
+{
+   "alwaysOnTopSetting": {
+      "description": "O texto do checkbox nas configurações que define a janela sempre em cima.",
+      "message": "Sempre em cima"
+   },
+   "appDesc": {
+      "description": "A descrição do aplicativo, exibida na web store.",
+      "message": "Um editor de texto para Chrome OS e Chrome."
+   },
+   "cancelDialogButton": {
+      "description": "O texto do botão que diz 'Cancelar'.",
+      "message": "Cancelar"
+   },
+   "closeButton": {
+      "description": "O texto do botão para fechar a janela do aplicativo.",
+      "message": "Sair"
+   },
+   "closeFileButton": {
+      "description": "The button text to close a file.",
+      "message": "Fechar arquivo"
+   },
+   "closeSettings": {
+      "description": "O texto para fechar o Menu de configurações.",
+      "message": "Voltar"
+   },
+   "closeSidebarButton": {
+      "description": "O texto do botão para fechar a barra lateral.",
+      "message": "Fechar a barra lateral"
+   },
+   "darkThemeOption": {
+      "description": "O texto da Opção de Tema escuro.",
+      "message": "Escuro"
+   },
+   "defaultThemeOption": {
+      "description": "O texto da Opção de Tema padrão.",
+      "message": "Padrão"
+   },
+   "deviceThemeOption": {
+      "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app.",
+      "message": "Usar o tema do dispositivo"
+   },
+   "errorTitle": {
+      "description": "O texto de erro mostrado na barra de título.",
+      "message": "Erro"
+   },
+   "fileMenuNew": {
+      "description": "O texto do Menu de Arquivo 'Novo'.",
+      "message": "Novo"
+   },
+   "fileMenuOpen": {
+      "description": "O texto do Menu de Arquivo 'Abrir'.",
+      "message": "Abrir"
+   },
+   "fileMenuSave": {
+      "description": "O texto do Menu de Arquivo 'Salvar'.",
+      "message": "Salvar"
+   },
+   "fileMenuSaveas": {
+      "description": "O texto do Menu de Arquivo 'Salvar como'.",
+      "message": "Salvar como"
+   },
+   "fontsizeSetting": {
+      "description": "O texto das configurações 'Tamanho da fonte'.",
+      "message": "Tamanho da fonte"
+   },
+   "fontsizeTooltip": {
+      "description": "A dica nas configurações 'Tamanho da fonte'.",
+      "message": "Defina com Ctrl- e Ctrl+"
+   },
+   "helpSection": {
+      "description": "Title for a section with useful links to help articles.",
+      "message": "Ajuda"
+   },
+   "lightThemeOption": {
+      "description": "O texto da Opção de Tema claro.",
+      "message": "Claro"
+   },
+   "linenumbersSetting": {
+      "description": "The text of the line numbers setting.",
+      "message": "Mostrar números de linha"
+   },
+   "loadingTitle": {
+      "description": "O texto mostrado na barra de título quando carrega um arquivo.",
+      "message": "Carregando..."
+   },
+   "maximizeButton": {
+      "description": "O texto do botão para maximizar a janela do aplicativo.",
+      "message": "Maximizar"
+   },
+   "menuSettings": {
+      "description": "O texto do Menu 'Configurações'.",
+      "message": "Configurações"
+   },
+   "menuShortcuts": {
+      "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app.",
+      "message": "Atalhos do teclado"
+   },
+   "minimizeButton": {
+      "description": "O texto do botão para minimizar a janela do aplicativo.",
+      "message": "Minimizar"
+   },
+   "noDialogButton": {
+      "description": "O texto do botão que diz 'Não'.",
+      "message": "Não"
+   },
+   "okDialogButton": {
+      "description": "O texto do botão que diz 'OK'.",
+      "message": "OK"
+   },
+   "openSidebarButton": {
+      "description": "O texto do botão para abrir a barra lateral.",
+      "message": "Abrir a barra lateral"
+   },
+   "restoreButton": {
+      "description": "O texto do botão para restaurar a janela do aplicativo.",
+      "message": "restaurar"
+   },
+   "saveFilePromptLine1": {
+      "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+      "message": "O arquivo $filename$ foi modificado.",
+      "placeholders": {
+         "filename": {
+            "content": "$1",
+            "example": "file.txt"
+         }
+      }
+   },
+   "saveFilePromptLine2": {
+      "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file.",
+      "message": "Quer salvá-lo antes de fechar?"
+   },
+   "screenReaderModeHelp": {
+      "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader.",
+      "message": "Para ter uma experiência mais otimizada, ative o modo leitor de tela no menu \"Configurações\"."
+   },
+   "screenReaderModeSetting": {
+      "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting.",
+      "message": "Modo leitor de tela"
+   },
+   "searchCounting": {
+      "description": "O texto mostrando a contagem da busca.",
+      "message": "$searchIndex$ de $searchCount$",
+      "placeholders": {
+         "searchCount": {
+            "content": "$2",
+            "example": "Contagem da busca"
+         },
+         "searchIndex": {
+            "content": "$1",
+            "example": "Índice da busca"
+         }
+      }
+   },
+   "searchNextButton": {
+      "description": "O texto do botão para buscar o próximo resultado.",
+      "message": "Próximo"
+   },
+   "searchPlaceholder": {
+      "description": "The placeholder text in the search input.",
+      "message": "Localizar…"
+   },
+   "searchPreviousButton": {
+      "description": "O texto do botão para buscar o resultado anterior.",
+      "message": "Anterior"
+   },
+   "smartindentSetting": {
+      "description": "O texto das configurações 'Indentação inteligente'.",
+      "message": "Indentação inteligente"
+   },
+   "spacestabSetting": {
+      "description": "O texto das configurações 'Tabs por espaços'.",
+      "message": "Tabs por espaços"
+   },
+   "tabsizeSetting": {
+      "description": "O texto das configurações 'Tamanho do tab'.",
+      "message": "Tamanho do tab"
+   },
+   "themeSetting": {
+      "description": "The text of the theme setting.",
+      "message": "Temas"
+   },
+   "wraplinesSetting": {
+      "description": "O texto das configurações 'Quebrar linhas'.",
+      "message": "Quebrar linhas"
+   },
+   "yesDialogButton": {
+      "description": "O texto do botão que diz 'Sim'.",
+      "message": "Sim"
+   }
+}

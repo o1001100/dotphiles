@@ -1,0 +1,190 @@
+{
+   "alwaysOnTopSetting": {
+      "description": "The label for the checkbox in settings tab that sets the window always on top.",
+      "message": "Sempre in primo piano"
+   },
+   "appDesc": {
+      "description": "The description of the application, displayed in the web store.",
+      "message": "Un editor di testo per Chrome OS e Chrome."
+   },
+   "cancelDialogButton": {
+      "description": "The button text which says 'Cancel'.",
+      "message": "Annulla"
+   },
+   "closeButton": {
+      "description": "The button text to close the app window.",
+      "message": "Esci"
+   },
+   "closeFileButton": {
+      "description": "The button text to close a file.",
+      "message": "Chiudi file"
+   },
+   "closeSettings": {
+      "description": "The text to close the settings Menu.",
+      "message": "Indietro"
+   },
+   "closeSidebarButton": {
+      "description": "The button text to close the sidebar.",
+      "message": "Chiudi barra laterale"
+   },
+   "darkThemeOption": {
+      "description": "The text of the dark Option Theme.",
+      "message": "Scuro"
+   },
+   "defaultThemeOption": {
+      "description": "The text of the default Option Theme.",
+      "message": "Predefinito"
+   },
+   "deviceThemeOption": {
+      "description": "The label on a radio button that lets the user configure the app to use their device's color theme. This changes the appearance of the app.",
+      "message": "Usa tema del dispositivo"
+   },
+   "errorTitle": {
+      "description": "The error text displayed in the filename title bar.",
+      "message": "Errore"
+   },
+   "fileMenuNew": {
+      "description": "The text of the File Menu 'New'.",
+      "message": "Nuovo"
+   },
+   "fileMenuOpen": {
+      "description": "The text of the File Menu 'Open'.",
+      "message": "Apri"
+   },
+   "fileMenuSave": {
+      "description": "The text of the File Menu 'Save'.",
+      "message": "Salva"
+   },
+   "fileMenuSaveas": {
+      "description": "The text of the File Menu 'Save as'.",
+      "message": "Salva con nome"
+   },
+   "fontsizeSetting": {
+      "description": "The text of the settings 'Font size'.",
+      "message": "Dimensioni carattere"
+   },
+   "fontsizeTooltip": {
+      "description": "The tooltip of the setting 'Font size'.",
+      "message": "Imposta con CTRL- e CTRL+"
+   },
+   "helpSection": {
+      "description": "Title for a section with useful links to help articles.",
+      "message": "Guida"
+   },
+   "lightThemeOption": {
+      "description": "The text of the light Option Theme.",
+      "message": "Chiaro"
+   },
+   "linenumbersSetting": {
+      "description": "The text of the line numbers setting.",
+      "message": "Mostra numeri di riga"
+   },
+   "loadingTitle": {
+      "description": "The text displayed in the filename title bar when file loads.",
+      "message": "Caricamento…"
+   },
+   "maximizeButton": {
+      "description": "The button text to maximize the app window.",
+      "message": "Ingrandisci"
+   },
+   "menuSettings": {
+      "description": "The text of the Menu 'Settings'.",
+      "message": "Impostazioni"
+   },
+   "menuShortcuts": {
+      "description": "The text on a button that takes the user to a Help center article showing all the Keyboard shortcuts for the app.",
+      "message": "Scorciatoie da tastiera"
+   },
+   "minimizeButton": {
+      "description": "The button text to minimize the app window.",
+      "message": "Riduci a icona"
+   },
+   "noDialogButton": {
+      "description": "The button text which says 'No'.",
+      "message": "No"
+   },
+   "okDialogButton": {
+      "description": "The button text which says 'OK'.",
+      "message": "OK"
+   },
+   "openSidebarButton": {
+      "description": "The button text to open the sidebar.",
+      "message": "Apri barra laterale"
+   },
+   "restoreButton": {
+      "description": "The button text to restore the app window.",
+      "message": "Ripristina"
+   },
+   "saveFilePromptLine1": {
+      "description": "The first line of the text which prompts the user to save a file before closing it. This line declares which file has been modified.",
+      "message": "Il file $filename$ è stato modificato.",
+      "placeholders": {
+         "filename": {
+            "content": "$1",
+            "example": "file.txt"
+         }
+      }
+   },
+   "saveFilePromptLine2": {
+      "description": "The second line of the text which prompts the user to save a file before closing it. This line asks if the user wants to save the file.",
+      "message": "Vuoi salvarlo prima di chiudere?"
+   },
+   "screenReaderModeHelp": {
+      "description": "The message that is read out to a user when they first open the text app with a screen reader, this message should notify users who are using a screen reader about the presence of the screen reader mode setting which optimizes the app for use with a screen reader.",
+      "message": "Per un'esperienza più ottimizzata con lo screen reader, attiva la modalità screen reader dal menu delle impostazioni."
+   },
+   "screenReaderModeSetting": {
+      "description": "The label for the checkbox in settings tab that activates screen reader mode, this mode allows for screenreaders to function correctly but disables syntax highlighting, tab control, line wrapping and smart indenting.",
+      "message": "Modalità screen reader"
+   },
+   "searchCounting": {
+      "description": "The text showing search counting.",
+      "message": "$searchIndex$ di $searchCount$",
+      "placeholders": {
+         "searchCount": {
+            "content": "$2",
+            "example": "Search count"
+         },
+         "searchIndex": {
+            "content": "$1",
+            "example": "Search index"
+         }
+      }
+   },
+   "searchNextButton": {
+      "description": "The button text to search the next result.",
+      "message": "Avanti"
+   },
+   "searchPlaceholder": {
+      "description": "The placeholder text in the search input.",
+      "message": "Trova…"
+   },
+   "searchPreviousButton": {
+      "description": "The button text to search the previous result.",
+      "message": "Indietro"
+   },
+   "smartindentSetting": {
+      "description": "The text of the settings 'Smart indent'.",
+      "message": "Rientro automatico"
+   },
+   "spacestabSetting": {
+      "description": "The text of the settings 'Tabs to spaces'.",
+      "message": "Tabulazioni in spazi"
+   },
+   "tabsizeSetting": {
+      "description": "The text of the settings 'Tab size'.",
+      "message": "Dimensione tabulazione"
+   },
+   "themeSetting": {
+      "description": "The text of the theme setting.",
+      "message": "Temi"
+   },
+   "wraplinesSetting": {
+      "description": "The text of the settings 'Wrap lines'.",
+      "message": "A capo automatico"
+   },
+   "yesDialogButton": {
+      "description": "The button text which says 'Yes'.",
+      "message": "Sì"
+   }
+}
