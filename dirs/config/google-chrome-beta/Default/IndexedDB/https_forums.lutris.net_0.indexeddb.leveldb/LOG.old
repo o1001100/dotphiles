@@ -1,6 +1,0 @@
-2023/03/08-00:19:54.804 18a1 Creating DB /home/l/.config/google-chrome-beta/Default/IndexedDB/https_forums.lutris.net_0.indexeddb.leveldb since it was missing.
-2023/03/08-00:19:54.807 18a1 Reusing MANIFEST /home/l/.config/google-chrome-beta/Default/IndexedDB/https_forums.lutris.net_0.indexeddb.leveldb/MANIFEST-000001
-2023/03/08-00:21:45.080 e0f7 Level-0 table #5: started
-2023/03/08-00:21:45.084 e0f7 Level-0 table #5: 43399 bytes OK
-2023/03/08-00:21:45.086 e0f7 Delete type=0 #3
-2023/03/08-00:21:45.087 e0f7 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

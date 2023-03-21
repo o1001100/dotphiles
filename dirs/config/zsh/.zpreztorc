@@ -41,7 +41,6 @@ zstyle ':prezto:load' pmodule \
   'enhancd' \
   'ssh-connect' \
   'zsh-extract' \
-  'zsh-autocomplete' \
   'systemd'
 
 # Enhancd

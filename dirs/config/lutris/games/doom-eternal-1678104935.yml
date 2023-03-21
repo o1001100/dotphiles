@@ -1,8 +1,0 @@
-game:
-  exe: /home/l/d/Games/DOOMEternal/DOOMEternalx64vk.exe
-system:
-  prefer_system_libs: true
-wine:
-  esync: false
-  fsync: false
-  version: lutris-GE-Proton7-38-x86_64
